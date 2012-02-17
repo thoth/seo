@@ -25,7 +25,7 @@ class SeoController extends SeoAppController {
  * @var array
  * @access public
  */
-    public $uses = array('Node', 'Setting', 'Vocabulary', 'Seo');
+    public $uses = array('Node', 'Vocabulary', 'Seo');
     
     public $components = array('RequestHandler');
     
@@ -36,101 +36,32 @@ class SeoController extends SeoAppController {
     public function beforeFilter() {
         parent::beforeFilter();
         
-        $settings =& ClassRegistry::init('Setting');
-		
-		//general settings
-        $this->defaults['insert_meta_keywords'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.insert_meta_keywords'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['insert_meta_description'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.insert_meta_description'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['insert_meta_robots'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.insert_meta_robots'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['meta_robots_default'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.meta_robots_default'), 'fields' => array('Setting.id','Setting.value')));
+		$this->loadModel('Setting');
 
-		//facebook settings
-        $this->defaults['facebook_link'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.facebook_link'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['facebook_app_key'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.facebook_app_key'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['facebook_app_secret'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.facebook_app_secret'), 'fields' => array('Setting.id','Setting.value')));
+        $this->loadModel('Contact');
+        $contacts = $this->Contact->find('all',array('conditions' => array('Contact.status' => 1)));
+        foreach($contacts as $contact){
+			//check for existance of key--If not there, we assume is new and stuff a default
+			$has_settings = $this->Setting->find('count', array('conditions'=>array('Setting.key'=>'Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key')));
+			if(!$has_settings){
 
-		//twitter settings
-        $this->defaults['twitter_username'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.twitter_username'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['twitter_consumer_key'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.twitter_consumer_key'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['twitter_consumer_secret'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.twitter_consumer_secret'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['twitter_access_token'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.twitter_access_token'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['twitter_access_token_secret'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.twitter_access_token_secret'), 'fields' => array('Setting.id','Setting.value')));
-
-		//sitemap defaults
-        $this->defaults['changefreq'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.changefreq'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['priority'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.priority'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['organize_by_vocabulary'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.organize_by_vocabulary'), 'fields' => array('Setting.id','Setting.value')));
-
-		//alexa
-        $this->defaults['alexa_verification_key'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.alexa_verification_key'), 'fields' => array('Setting.id','Setting.value')));
-
-		//bing
-        $this->defaults['bing_webmaster_tools_key'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.bing_webmaster_tools_key'), 'fields' => array('Setting.id','Setting.value')));
-        
-		//google
-        $this->defaults['google_adwords_tracking_for_messages'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.google_adwords_tracking_for_messages'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['google_webmaster_tools_key'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.google_webmaster_tools_key'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['google_analytics_ua'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.google_analytics_ua'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['google_analytics_domain'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.google_analytics_domain'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['google_places_cid'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.google_places_cid'), 'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['google_plus_cid'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.google_plus_cid'), 'fields' => array('Setting.id','Setting.value')));
-
-		//singular page
-        $this->defaults['homepage_title'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.homepage_title'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['homepage_description'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.homepage_description'), 'fields' => array('Setting.id','Setting.value')));
-
-		//social media settings
-        $this->defaults['show_per_page_stats'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.show_per_page_stats'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['hook_google'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.hook_google'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['hook_twitter'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.hook_twitter'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['hook_facebook'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.hook_facebook'), 'fields' => array('Setting.id','Setting.value')));
-
-		//RSS Settings
-        $this->defaults['rss_before'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.rss_before'),'fields' => array('Setting.id','Setting.value')));
-        $this->defaults['rss_after'] = $settings->find('all',array('conditions' => array('Setting.key =' => 'Seo.rss_after'), 'fields' => array('Setting.id','Setting.value')));
-
-        if (!empty($this->defaults['changefreq'])) {
-            $this->defaults['insert_meta_keywords'] =  $this->defaults['insert_meta_keywords'][0]['Setting'];
-            $this->defaults['insert_meta_description'] =  $this->defaults['insert_meta_description'][0]['Setting'];
-            $this->defaults['insert_meta_robots'] =  $this->defaults['insert_meta_robots'][0]['Setting'];
-            $this->defaults['meta_robots_default'] =  $this->defaults['meta_robots_default'][0]['Setting'];
-
-            $this->defaults['facebook_link'] =  $this->defaults['facebook_link'][0]['Setting'];
-            $this->defaults['facebook_app_key'] =  $this->defaults['facebook_app_key'][0]['Setting'];
-            $this->defaults['facebook_app_secret'] =  $this->defaults['facebook_app_secret'][0]['Setting'];
-
-            $this->defaults['twitter_username'] =  $this->defaults['twitter_username'][0]['Setting'];
-            $this->defaults['twitter_consumer_key'] =  $this->defaults['twitter_consumer_key'][0]['Setting'];
-            $this->defaults['twitter_consumer_secret'] =  $this->defaults['twitter_consumer_secret'][0]['Setting'];
-            $this->defaults['twitter_access_token'] =  $this->defaults['twitter_access_token'][0]['Setting'];
-            $this->defaults['twitter_access_token_secret'] =  $this->defaults['twitter_access_token_secret'][0]['Setting'];
-
-            $this->defaults['changefreq'] =  $this->defaults['changefreq'][0]['Setting'];
-            $this->defaults['priority'] =  $this->defaults['priority'][0]['Setting'];        
-            $this->defaults['organize_by_vocabulary'] =  $this->defaults['organize_by_vocabulary'][0]['Setting'];        
-
-            $this->defaults['alexa_verification_key'] =  $this->defaults['alexa_verification_key'][0]['Setting'];
-            $this->defaults['bing_webmaster_tools_key'] =  $this->defaults['bing_webmaster_tools_key'][0]['Setting'];        
-            $this->defaults['google_adwords_tracking_for_messages'] =  $this->defaults['google_adwords_tracking_for_messages'][0]['Setting'];        
-            $this->defaults['google_webmaster_tools_key'] =  $this->defaults['google_webmaster_tools_key'][0]['Setting'];        
-            $this->defaults['google_analytics_ua'] =  $this->defaults['google_analytics_ua'][0]['Setting'];
-            $this->defaults['google_analytics_domain'] =  $this->defaults['google_analytics_domain'][0]['Setting'];
-            $this->defaults['google_places_cid'] =  $this->defaults['google_places_cid'][0]['Setting'];
-            $this->defaults['google_plus_cid'] =  $this->defaults['google_plus_cid'][0]['Setting'];
-            
-            $this->defaults['homepage_title'] =  $this->defaults['homepage_title'][0]['Setting'];        
-            $this->defaults['homepage_description'] =  $this->defaults['homepage_description'][0]['Setting'];        
-            
-            $this->defaults['show_per_page_stats'] =  $this->defaults['show_per_page_stats'][0]['Setting'];        
-            $this->defaults['hook_google'] =  $this->defaults['hook_google'][0]['Setting'];        
-            $this->defaults['hook_twitter'] =  $this->defaults['hook_twitter'][0]['Setting'];        
-            $this->defaults['hook_facebook'] =  $this->defaults['hook_facebook'][0]['Setting'];        
-
-            $this->defaults['rss_before'] =  $this->defaults['rss_before'][0]['Setting'];        
-            $this->defaults['rss_after'] =  $this->defaults['rss_after'][0]['Setting'];        
-
-            $this->set('defaults', $this->defaults);
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key','',array('description' => 'Conversion ID','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_language','',array('description' => 'Conversion Language','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_format','',array('description' => 'Conversion Format','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_color','',array('description' => 'Conversion Color','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_label','',array('description' => 'Conversion Label','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_value','',array('description' => 'Conversion Value','editable' => 1));
+			}
         }
+
+		$settings = $this->Setting->find('all', array('conditions'=>array('Setting.key LIKE'=>'Seo.%')));
+		foreach($settings as $setting){
+			$cleaned_key = explode('.', $setting['Setting']['key']);
+			$this->defaults[$cleaned_key[1]]['id'] = $setting['Setting']['id'];
+			$this->defaults[$cleaned_key[1]]['value'] = $setting['Setting']['value'];
+		}
+		
+        $this->set('defaults', $this->defaults);
     	
     	$this->Node->bindModel(
         	array('hasOne'=>array('Seo')),
@@ -195,7 +126,26 @@ class SeoController extends SeoAppController {
             $this->Session->setFlash(__('SEO/OM Google Options have been saved', true));
             $this->redirect(array('action'=>'google'));
         }
+        
+        $this->loadModel('Contact');
+        $contacts = $this->Contact->find('all',array('conditions' => array('Contact.status =' => 1)));
+        foreach($contacts as $contact){
+			//check for existance of key--If not there, we assume is new and stuff a default
+			if(!array_key_exists('adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key', $this->defaults)){
+
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key','',array('description' => 'Conversion ID','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_language','',array('description' => 'Conversion Language','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_format','',array('description' => 'Conversion Format','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_color','',array('description' => 'Conversion Color','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_label','',array('description' => 'Conversion Label','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_value','',array('description' => 'Conversion Value','editable' => 1));
+			}
+	
+        }
         $this->set('inputs', $this->defaults);
+        
+        $this->set(compact('contacts'));
+        
     }
     
     function index() {
