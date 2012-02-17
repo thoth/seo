@@ -48,21 +48,26 @@ var google_conversion_value = {{google_conversion_value}};
 */
 	foreach($contacts as $contact){
 
-		echo $form->input('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key']['id'] ));
-		echo $form->input('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_language.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_language']['id'] ));
-		echo $form->input('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_format.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_format']['id'] ));
-		echo $form->input('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_color.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_color']['id'] ));
-		echo $form->input('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_label.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_label']['id'] ));
-		echo $form->input('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_value.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_value']['id'] ));
+		echo $form->input('Seo.adwords_conversion_key_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_key_'.$contact['Contact']['alias']]['id'] ));
+		echo $form->input('Seo.adwords_conversion_language_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_language_'.$contact['Contact']['alias']]['id'] ));
+		echo $form->input('Seo.adwords_conversion_format_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_format_'.$contact['Contact']['alias']]['id'] ));
+		echo $form->input('Seo.adwords_conversion_color_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_color_'.$contact['Contact']['alias']]['id'] ));
+		echo $form->input('Seo.adwords_conversion_label_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_label_'.$contact['Contact']['alias']]['id'] ));
+		echo $form->input('Seo.adwords_conversion_value_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_value_'.$contact['Contact']['alias']]['id'] ));
 		echo $form->inputs(
 			array(
 				'legend'=>'Google Adwords Conversion for "'.$contact['Contact']['title']. '" Contact Form',
-				'Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key.value'=>array('default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key']['value'], 'label' => 'Conversion ID' ),
-				'Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_language.value'=>array('default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_language']['value'], 'label' => 'Conversion Language' ),
-				'Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_format.value'=>array('default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_format']['value'], 'label' => 'Conversion Format' ),
-				'Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_color.value'=>array('default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_color']['value'], 'label' => 'Conversion Color' ),
-				'Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_label.value'=>array('default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_label']['value'], 'label' => 'Conversion Label' ),
-				'Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_value.value'=>array('default' => $inputs['adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_value']['value'], 'label' => 'Conversion Value' ),
+				'Seo.adwords_conversion_key_'.$contact['Contact']['alias'].'.value'=>array('default' => $inputs['adwords_conversion_key_'.$contact['Contact']['alias']]['value'], 'label' => 'Conversion ID' ),
+				
+				'Seo.adwords_conversion_language_'.$contact['Contact']['alias'].'.value'=>array('default' => $inputs['adwords_conversion_language_'.$contact['Contact']['alias']]['value'], 'label' => 'Conversion Language' ),
+				
+				'Seo.adwords_conversion_format_'.$contact['Contact']['alias'].'.value'=>array('default' => $inputs['adwords_conversion_format_'.$contact['Contact']['alias']]['value'], 'label' => 'Conversion Format' ),
+				
+				'Seo.adwords_conversion_color_'.$contact['Contact']['alias'].'.value'=>array('default' => $inputs['adwords_conversion_color_'.$contact['Contact']['alias']]['value'], 'label' => 'Conversion Color' ),
+				
+				'Seo.adwords_conversion_label_'.$contact['Contact']['alias'].'.value'=>array('default' => $inputs['adwords_conversion_label_'.$contact['Contact']['alias']]['value'], 'label' => 'Conversion Label' ),
+				
+				'Seo.adwords_conversion_value_'.$contact['Contact']['alias'].'.value'=>array('default' => $inputs['adwords_conversion_value_'.$contact['Contact']['alias']]['value'], 'label' => 'Conversion Value' ),
 			)
 		);		
 	}

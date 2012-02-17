@@ -141,15 +141,15 @@ class SeoHelper extends AppHelper {
 			if($this->Layout->View->params['controller'] == 'contacts' && $this->Layout->View->params['action'] == 'view'){
 	    		//debug($this); exit();
     			//need to inject a conversion block if we have one for the contact form
-	        	if(strlen(Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_key')) > 0){
+	        	if(strlen(Configure::read('Seo.adwords_conversion_key_'.$this->Layout->View->params['pass'][0])) > 0){
 
 	        		$element = $this->Layout->View->element('google_adwords_conversion', array('plugin' => 'seo'));	
-	        		$element = str_replace('{{google_conversion_key}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_key'), $element);
-	        		$element = str_replace('{{google_conversion_language}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_language'), $element);
-	        		$element = str_replace('{{google_conversion_format}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_format'), $element);
-	        		$element = str_replace('{{google_conversion_color}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_color'), $element);
-	        		$element = str_replace('{{google_conversion_label}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_label'), $element);
-	        		$element = str_replace('{{google_conversion_value}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_value'), $element);
+	        		$element = str_replace('{{google_conversion_key}}', Configure::read('Seo.adwords_conversion_key_'.$this->Layout->View->params['pass'][0]), $element);
+	        		$element = str_replace('{{google_conversion_language}}', Configure::read('Seo.adwords_conversion_language_'.$this->Layout->View->params['pass'][0]), $element);
+	        		$element = str_replace('{{google_conversion_format}}', Configure::read('Seo.adwords_conversion_format_'.$this->Layout->View->params['pass'][0]), $element);
+	        		$element = str_replace('{{google_conversion_color}}', Configure::read('Seo.adwords_conversion_color_'.$this->Layout->View->params['pass'][0]), $element);
+	        		$element = str_replace('{{google_conversion_label}}', Configure::read('Seo.adwords_conversion_label_'.$this->Layout->View->params['pass'][0]), $element);
+	        		$element = str_replace('{{google_conversion_value}}', Configure::read('Seo.adwords_conversion_value_'.$this->Layout->View->params['pass'][0]), $element);
 					echo $element;
     			}
     			
