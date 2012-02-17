@@ -145,7 +145,7 @@ class SeoHelper extends AppHelper {
 	        		echo $this->Layout->View->element('google_adwords_conversion', array('plugin' => 'seo'));	
     			}
     			
-	    		debug($this); exit();
+	    		//debug($this); exit();
     		}
 
         }
