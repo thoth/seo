@@ -42,15 +42,15 @@ class SeoController extends SeoAppController {
         $contacts = $this->Contact->find('all',array('conditions' => array('Contact.status' => 1)));
         foreach($contacts as $contact){
 			//check for existance of key--If not there, we assume is new and stuff a default
-			$has_settings = $this->Setting->find('count', array('conditions'=>array('Setting.key'=>'Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key')));
+			$has_settings = $this->Setting->find('count', array('conditions'=>array('Setting.key'=>'Seo.adwords_conversion_key_'.$contact['Contact']['alias'])));
 			if(!$has_settings){
 
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key','',array('description' => 'Conversion ID','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_language','',array('description' => 'Conversion Language','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_format','',array('description' => 'Conversion Format','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_color','',array('description' => 'Conversion Color','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_label','',array('description' => 'Conversion Label','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_value','',array('description' => 'Conversion Value','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_key_'.$contact['Contact']['alias'],'',array('description' => 'Conversion ID','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_language_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Language','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_format_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Format','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_color_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Color','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_label_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Label','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_value_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Value','editable' => 1));
 			}
         }
 
@@ -133,12 +133,12 @@ class SeoController extends SeoAppController {
 			//check for existance of key--If not there, we assume is new and stuff a default
 			if(!array_key_exists('adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key', $this->defaults)){
 
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_key','',array('description' => 'Conversion ID','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_language','',array('description' => 'Conversion Language','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_format','',array('description' => 'Conversion Format','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_color','',array('description' => 'Conversion Color','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_label','',array('description' => 'Conversion Label','editable' => 1));
-				$this->Setting->write('Seo.adwords_conversion_'.$contact['Contact']['alias'].'_google_conversion_value','',array('description' => 'Conversion Value','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_key_'.$contact['Contact']['alias'],'',array('description' => 'Conversion ID','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_language_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Language','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_format_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Format','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_color_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Color','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_label_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Label','editable' => 1));
+				$this->Setting->write('Seo.adwords_conversion_value_'.$contact['Contact']['alias'],'',array('description' => 'Conversion Value','editable' => 1));
 			}
 	
         }
