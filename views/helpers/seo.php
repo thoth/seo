@@ -141,11 +141,18 @@ class SeoHelper extends AppHelper {
 			if($this->Layout->View->params['controller'] == 'contacts' && $this->Layout->View->params['action'] == 'view'){
 	    		//debug($this); exit();
     			//need to inject a conversion block if we have one for the contact form
-	        	if(strlen(Configure::read('Seo.adwords_conversion.'.$this->Layout->View->params['pass'][0].'.conversion_id')) > 0){
-	        		echo $this->Layout->View->element('google_adwords_conversion', array('plugin' => 'seo'));	
+	        	if(strlen(Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_key')) > 0){
+
+	        		$element = $this->Layout->View->element('google_adwords_conversion', array('plugin' => 'seo'));	
+	        		$element = str_replace('{{google_conversion_key}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_key'), $element);
+	        		$element = str_replace('{{google_conversion_language}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_language'), $element);
+	        		$element = str_replace('{{google_conversion_format}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_format'), $element);
+	        		$element = str_replace('{{google_conversion_color}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_color'), $element);
+	        		$element = str_replace('{{google_conversion_label}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_label'), $element);
+	        		$element = str_replace('{{google_conversion_value}}', Configure::read('Seo.adwords_conversion_'.$this->Layout->View->params['pass'][0].'_google_conversion_value'), $element);
+					echo $element;
     			}
     			
-	    		debug($this); exit();
     		}
 
         }

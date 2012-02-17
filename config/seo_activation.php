@@ -79,7 +79,7 @@ class SeoActivation {
 
 		$current_version  = Configure::read('Seo.version');
 		if($this->version != $current_version){
-			switch($current_version){
+			switch($this->version){
 				case '1.0':
 				default:
 			        // Add a table to the DB
@@ -89,14 +89,14 @@ class SeoActivation {
 			
 					$db = ConnectionManager::getDataSource('default');
 					if(!$db->isConnected()) {
-							$this->Session->setFlash(__('Could not connect to database.', true));
-						} else {
-							$schema =& new CakeSchema(array('plugin'=>'seo','name'=>'seo'));
-							$schema = $schema->load();
-							foreach($schema->tables as $table => $fields) {
-								$create = $db->createSchema($schema, $table);
-								$db->execute($create);
-							} 
+						$this->Session->setFlash(__('Could not connect to database.', true));
+					} else {
+						$schema =& new CakeSchema(array('plugin'=>'seo','name'=>'seo'));
+						$schema = $schema->load();
+						foreach($schema->tables as $table => $fields) {
+							$create = $db->createSchema($schema, $table);
+							$db->execute($create);
+						} 
 					}      
 
 				break;
