@@ -35,7 +35,7 @@ class SeoController extends SeoAppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        
+
 		$this->loadModel('Setting');
 
         $this->loadModel('Contact');
@@ -71,7 +71,6 @@ class SeoController extends SeoAppController {
 
     public function admin_index() {
         $this->set('title_for_layout', __('SEO/OM - General Options', true));
-        
         if(!empty($this->data)) {
             $settings =& ClassRegistry::init('Setting');
             foreach ($this->data['Seo'] as $key=>$setting) {
@@ -428,6 +427,18 @@ class SeoController extends SeoAppController {
         $node = $this->Node->read(null, $node_id);
         $this->set(compact('node'));
 		
+	}
+
+	function admin_nodestats($node_id = null){
+	
+		if(!empty($node_id)){
+	        $node = $this->Node->read(null, $node_id);
+	
+			$this->autoLayout = false;
+			App::import('Vendor', 'Seo.SEOstats', array('file'=>'src'.DS.'class.seostats.php'));
+			$seostats = new SEOStats('http://'.$_SERVER['SERVER_NAME'].$node['Node']['path']); //'http://'.$_SERVER['SERVER_NAME'].$this->data['Node']['path']);
+			$this->set(compact('seostats'));
+		}
 	}
 
 }

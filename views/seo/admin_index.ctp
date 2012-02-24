@@ -27,6 +27,14 @@
 
 echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'index', 'admin' => true)));
 
+	echo $form->input('Seo.remove_settings_on_deactivate.id', array('type' => 'hidden', 'default' => $inputs['remove_settings_on_deactivate']['id'] ));
+	echo $form->inputs(
+		array(
+			'legend'=>'Plugin Settings',
+			'Seo.remove_settings_on_deactivate.value'=>array('default' => $inputs['remove_settings_on_deactivate']['value'], 'label' => 'Remove Settings on Deactivate', 'after'=>'You must type "YES" exactly to remove settings. This is to prevent losing keys, etc.' ),
+		)
+	);
+
 	echo $form->input('Seo.meta_robots_default.id', array('type' => 'hidden', 'default' => $inputs['meta_robots_default']['id'] ));
 	echo $form->input('Seo.insert_meta_robots.id', array('type' => 'hidden', 'default' => $inputs['insert_meta_robots']['id'] ));
 	echo $form->input('Seo.insert_meta_description.id', array('type' => 'hidden', 'default' => $inputs['insert_meta_description']['id'] ));
@@ -96,13 +104,35 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 		)
 	);
 
+	echo $form->input('Seo.add_rss_ga_campaign_tags.id', array('type' => 'hidden', 'default' => $inputs['add_rss_ga_campaign_tags']['id'] ));
+	echo $form->input('Seo.rss_ga_medium.id', array('type' => 'hidden', 'default' => $inputs['rss_ga_medium']['id'] ));
+	echo $form->input('Seo.rss_ga_campaign_name.id', array('type' => 'hidden', 'default' => $inputs['rss_ga_campaign_name']['id'] ));
 	echo $form->input('Seo.rss_before.id', array('type' => 'hidden', 'default' => $inputs['rss_before']['id'] ));
 	echo $form->input('Seo.rss_after.id', array('type' => 'hidden', 'default' => $inputs['rss_after']['id'] ));
 	echo $form->inputs(
 		array(
 			'legend'=>'RSS Settings',
-			'Seo.rss_before.value'=>array('default' => $inputs['rss_before']['value'], 'type'=>'textarea', 'label' => 'Content to prefix each post in RSS Feed' ),
-			'Seo.rss_after.value'=>array('default' => $inputs['rss_after']['value'], 'type'=>'textarea', 'label' => 'Content to suffix each post in RSS Feed' ),
+			'Seo.add_rss_ga_campaign_tags.value'=>array('default' => $inputs['add_rss_ga_campaign_tags']['value'], 'options'=>$yes_no, 'label' => 'Add Google Analytics Campaign Trackers to link?' ),
+			'Seo.rss_ga_medium.value'=>array('default' => $inputs['rss_ga_medium']['value'], 'label' => 'Campaign Medium' ),
+			'Seo.rss_ga_campaign_name.value'=>array('default' => $inputs['rss_ga_campaign_name']['value'], 'label' => 'Campaign Name' ),
+			'Seo.rss_before.value'=>array('default' => $inputs['rss_before']['value'], 'type'=>'textarea', 'label' => 'Content to prefix each post in RSS Feed', 'after'=>'Use the following tags: {{current_page}}, {{website}}, {{page_title}}, {{site_title}}, {{year}}, {{month}}, {{monthname}}, {{day}}'  ),
+			'Seo.rss_after.value'=>array('default' => $inputs['rss_after']['value'], 'type'=>'textarea', 'label' => 'Content to suffix each post in RSS Feed', 'after'=>'Use the following tags: {{current_page}}, {{website}}, {{page_title}}, {{site_title}}, {{year}}, {{month}}, {{monthname}}, {{day}}'  ),
+		)
+	);
+
+	echo $form->input('Seo.add_copy_link.id', array('type' => 'hidden', 'default' => $inputs['add_copy_link']['id'] ));
+	echo $form->input('Seo.add_copy_link_ga_campaign_tags.id', array('type' => 'hidden', 'default' => $inputs['add_copy_link_ga_campaign_tags']['id'] ));
+	echo $form->input('Seo.copy_link_ga_medium.id', array('type' => 'hidden', 'default' => $inputs['copy_link_ga_medium']['id'] ));
+	echo $form->input('Seo.copy_link_ga_campaign_name.id', array('type' => 'hidden', 'default' => $inputs['copy_link_ga_campaign_name']['id'] ));
+	echo $form->input('Seo.copy_link_text.id', array('type' => 'hidden', 'default' => $inputs['copy_link_text']['id'] ));
+	echo $form->inputs(
+		array(
+			'legend'=>'Copied Text Behavior',
+			'Seo.add_copy_link.value'=>array('default' => $inputs['add_copy_link']['value'], 'options'=>$yes_no, 'label' => 'Append some text if anyone copies text from the site?' ),
+			'Seo.add_copy_link_ga_campaign_tags.value'=>array('default' => $inputs['add_copy_link_ga_campaign_tags']['value'], 'options'=>$yes_no, 'label' => 'Add Google Analytics Campaign Trackers to link?' ),
+			'Seo.copy_link_ga_medium.value'=>array('default' => $inputs['copy_link_ga_medium']['value'], 'label' => 'Campaign Medium' ),
+			'Seo.copy_link_ga_campaign_name.value'=>array('default' => $inputs['copy_link_ga_campaign_name']['value'], 'label' => 'Campaign Name' ),
+			'Seo.copy_link_text.value'=>array('default' => $inputs['copy_link_text']['value'], 'type'=>'textarea', 'label' => 'Appended Text', 'after'=>'Use the following tags: {{current_page}}, {{website}}, {{page_title}}, {{site_title}}, {{year}}, {{month}}, {{monthname}}, {{day}}' ),
 		)
 	);
 	

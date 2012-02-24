@@ -37,6 +37,8 @@ class SeoActivation {
         $controller->Croogo->addAco('Seo/sitemap', array('admin', 'registered', 'public')); 
         $controller->Croogo->addAco('Seo/sitemapxml', array('admin', 'registered', 'public')); 
        
+        $controller->Setting->write('Seo.remove_settings_on_deactivate','NO',array('description' => 'Remove settings on deactivate','editable' => 1));
+        
         $controller->Setting->write('Seo.changefreq','weekly',array('description' => 'Default Changefeq of the SEO Sitemap entries','editable' => 1));
         $controller->Setting->write('Seo.priority',0.8,array('description' => 'Default Priority of the SEO Sitemap entries','editable' => 1));
         $controller->Setting->write('Seo.organize_by_vocabulary',1,array('description' => 'Organize the public sitemap by vocabulary?','editable' => 1));
@@ -64,8 +66,17 @@ class SeoActivation {
         $controller->Setting->write('Seo.insert_meta_keywords','1',array('description' => 'Insert META Keywords tag?','editable' => 1));
         $controller->Setting->write('Seo.turn_off_promote_by_default','1',array('description' => 'Turn OFF "Promoted" by default','editable' => 1));
         
+        $controller->Setting->write('Seo.add_rss_ga_campaign_tags','1',array('description' => 'Add Google Analytics Campaign Trackers to link?','editable' => 1));
+        $controller->Setting->write('Seo.rss_ga_medium','rssfeed',array('description' => 'Campaign Medium','editable' => 1));
+        $controller->Setting->write('Seo.rss_ga_campaign_name','RSSFeed',array('description' => 'Campaign Name','editable' => 1));
         $controller->Setting->write('Seo.rss_before','',array('description' => 'RSS Post Prefix','editable' => 1));
         $controller->Setting->write('Seo.rss_after','',array('description' => 'RSS Post Suffix','editable' => 1));
+        
+        $controller->Setting->write('Seo.add_copy_link','1',array('description' => 'Add page link when copied?','editable' => 1));
+        $controller->Setting->write('Seo.add_copy_link_ga_campaign_tags','1',array('description' => 'Add Google Analytics Campaign Trackers to link?','editable' => 1));
+        $controller->Setting->write('Seo.copy_link_ga_medium','copylink',array('description' => 'Campaign Medium','editable' => 1));
+        $controller->Setting->write('Seo.copy_link_ga_campaign_name','CutNPaste',array('description' => 'Campaign Name','editable' => 1));
+        $controller->Setting->write('Seo.copy_link_text','Read more at: {{current_page}} Copyright &copy; {{site_title}}',array('description' => 'Text to add when copied.','editable' => 1));
 
         $controller->Setting->write('Seo.facebook_link','',array('description' => 'Facebook Page','editable' => 1));
         $controller->Setting->write('Seo.facebook_app_key','',array('description' => 'Facebook App Key','editable' => 1));
@@ -174,44 +185,55 @@ class SeoActivation {
         // ACL: remove ACOs with permissions
         $controller->Croogo->removeAco('Seo'); // ExampleController ACO and it's actions will be removed
         
-        $controller->Setting->deleteKey('Seo.alexa_verification_key');
-        $controller->Setting->deleteKey('Seo.bing_webmaster_tools_key');
-        $controller->Setting->deleteKey('Seo.google_adwords_tracking_for_messages');
-        $controller->Setting->deleteKey('Seo.google_webmaster_tools_key');
-        $controller->Setting->deleteKey('Seo.google_analytics_ua');
-        $controller->Setting->deleteKey('Seo.google_analytics_domain');
-        $controller->Setting->deleteKey('Seo.google_places_cid');
-        $controller->Setting->deleteKey('Seo.google_plus_cid');
-        
-        $controller->Setting->deleteKey('Seo.changefreq');
-        $controller->Setting->deleteKey('Seo.priority');
-        $controller->Setting->deleteKey('Seo.organize_by_vocabulary');
-        
-        $controller->Setting->deleteKey('Seo.homepage_title');
-        $controller->Setting->deleteKey('Seo.homepage_description');
-        
-        $controller->Setting->deleteKey('Seo.show_per_page_stats');
-        $controller->Setting->deleteKey('Seo.hook_google');
-        $controller->Setting->deleteKey('Seo.hook_twitter');
-        $controller->Setting->deleteKey('Seo.hook_facebook');
-        
-        $controller->Setting->deleteKey('Seo.insert_meta_robots');
-        $controller->Setting->deleteKey('Seo.meta_robots_default');
-        $controller->Setting->deleteKey('Seo.insert_meta_description');
-        $controller->Setting->deleteKey('Seo.insert_meta_keywords');
-        
-        $controller->Setting->deleteKey('Seo.rss_before');
-        $controller->Setting->deleteKey('Seo.rss_after');
-        
-        $controller->Setting->deleteKey('Seo.facebook_link');
-        $controller->Setting->deleteKey('Seo.facebook_app_key');
-        $controller->Setting->deleteKey('Seo.facebook_app_secret');
-        
-        $controller->Setting->deleteKey('Seo.twitter_username');
-        $controller->Setting->deleteKey('Seo.twitter_consumer_key');
-        $controller->Setting->deleteKey('Seo.twitter_consumer_secret');
-        $controller->Setting->deleteKey('Seo.twitter_access_token');
-        $controller->Setting->deleteKey('Seo.twitter_access_token_secret');
+        if(Configure::read('Seo.remove_settings_on_deactivate') == 'YES' ){
+	        $controller->Setting->deleteKey('Seo.alexa_verification_key');
+	        $controller->Setting->deleteKey('Seo.bing_webmaster_tools_key');
+	        $controller->Setting->deleteKey('Seo.google_adwords_tracking_for_messages');
+	        $controller->Setting->deleteKey('Seo.google_webmaster_tools_key');
+	        $controller->Setting->deleteKey('Seo.google_analytics_ua');
+	        $controller->Setting->deleteKey('Seo.google_analytics_domain');
+	        $controller->Setting->deleteKey('Seo.google_places_cid');
+	        $controller->Setting->deleteKey('Seo.google_plus_cid');
+	        
+	        $controller->Setting->deleteKey('Seo.changefreq');
+	        $controller->Setting->deleteKey('Seo.priority');
+	        $controller->Setting->deleteKey('Seo.organize_by_vocabulary');
+	        
+	        $controller->Setting->deleteKey('Seo.homepage_title');
+	        $controller->Setting->deleteKey('Seo.homepage_description');
+	        
+	        $controller->Setting->deleteKey('Seo.show_per_page_stats');
+	        $controller->Setting->deleteKey('Seo.hook_google');
+	        $controller->Setting->deleteKey('Seo.hook_twitter');
+	        $controller->Setting->deleteKey('Seo.hook_facebook');
+	        
+	        $controller->Setting->deleteKey('Seo.insert_meta_robots');
+	        $controller->Setting->deleteKey('Seo.meta_robots_default');
+	        $controller->Setting->deleteKey('Seo.insert_meta_description');
+	        $controller->Setting->deleteKey('Seo.insert_meta_keywords');
+	        
+	        $controller->Setting->deleteKey('Seo.add_rss_ga_campaign_tags');
+	        $controller->Setting->deleteKey('Seo.rss_ga_medium');
+	        $controller->Setting->deleteKey('Seo.rss_ga_campaign');
+	        $controller->Setting->deleteKey('Seo.rss_before');
+	        $controller->Setting->deleteKey('Seo.rss_after');
+	        
+	        $controller->Setting->deleteKey('Seo.add_copy_link');
+	        $controller->Setting->deleteKey('Seo.add_copy_link_ga_campaign_tags');
+	        $controller->Setting->deleteKey('Seo.copy_link_ga_medium');
+	        $controller->Setting->deleteKey('Seo.copy_link_ga_campaign');
+	        $controller->Setting->deleteKey('Seo.copy_link_text');
+	        
+	        $controller->Setting->deleteKey('Seo.facebook_link');
+	        $controller->Setting->deleteKey('Seo.facebook_app_key');
+	        $controller->Setting->deleteKey('Seo.facebook_app_secret');
+	        
+	        $controller->Setting->deleteKey('Seo.twitter_username');
+	        $controller->Setting->deleteKey('Seo.twitter_consumer_key');
+	        $controller->Setting->deleteKey('Seo.twitter_consumer_secret');
+	        $controller->Setting->deleteKey('Seo.twitter_access_token');
+	        $controller->Setting->deleteKey('Seo.twitter_access_token_secret');
+        }
         
         
         $controller->loadModel('Block');

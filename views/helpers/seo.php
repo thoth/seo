@@ -32,14 +32,7 @@ class SeoHelper extends AppHelper {
  * @return void
  */
     public function beforeRender() {
-    	//check to see if we are doing RSS
-    	if($this->params['url']['ext'] == 'rss'){
-				//debug($this->Layout->View->viewVars); exit();        
-    		if(array_key_exists('nodes', $this->Layout->View->viewVars)){
-	    		//check to see if $nodes is set
-				debug('has rss'); exit();        
-    		}
-    	}
+
 
 		if($this->Layout->View->here == '/'){
 			$this->Layout->View->viewVars['title_for_layout'] = Configure::read('Seo.homepage_title');
@@ -61,6 +54,28 @@ class SeoHelper extends AppHelper {
 	        	//grab the google analytics element and splice in changes
 	        	$google_script = $this->Layout->View->element('google_analytics', array('plugin' => 'seo'));
 				$this->Html->scriptBlock($this->replaceTokens($google_script), array('inline' => false));
+	    	}
+			
+	        if($this->params['url']['ext'] == '' && strlen(Configure::read('Seo.add_copy_link'))>0){    
+	        	//grab the google analytics element and splice in changes
+	        	$copy_link = $this->Layout->View->element('copy_link', array('plugin' => 'seo'));
+	        	$copy_link = $this->replaceTokens($copy_link);
+	        	
+	        	//do specific tag replacements
+	        	$campaign_tracker = '';
+	        	if(strlen(Configure::read('Seo.add_copy_link_ga_campaign_tags'))>0){
+		        	$campaign_tracker = '?utm_medium='.Configure::read('Seo.copy_link_ga_medium').'&utm_campaign='.Configure::read('Seo.copy_link_ga_campaign');
+	        	}
+	        	$copy_link = str_replace('{{current_page}}', 'http://'.$_SERVER['SERVER_NAME'].$this->here.$campaign_tracker, $copy_link);
+	        	$copy_link = str_replace('{{website}}', 'http://'.$_SERVER['SERVER_NAME'].$campaign_tracker, $copy_link);
+	        	$copy_link = str_replace('{{page_title}}', $this->Layout->View->viewVars['title_for_layout'], $copy_link);
+	        	$copy_link = str_replace('{{site_title}}', Configure::read('Site.title'), $copy_link);
+	        	$copy_link = str_replace('{{year}}', date('Y'), $copy_link);
+	        	$copy_link = str_replace('{{month}}', date('m'), $copy_link);
+	        	$copy_link = str_replace('{{monthname}}', date('F'), $copy_link);
+	        	$copy_link = str_replace('{{day}}', date('d'), $copy_link);
+	        	
+				$this->Html->scriptBlock($copy_link, array('inline' => false));
 	    	}
 			
 			//need to intercept meta tags and stuff into there
