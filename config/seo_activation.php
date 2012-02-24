@@ -36,6 +36,33 @@ class SeoActivation {
         $controller->Croogo->addAco('Seo/index', array('admin', 'registered', 'public'));
         $controller->Croogo->addAco('Seo/sitemap', array('admin', 'registered', 'public')); 
         $controller->Croogo->addAco('Seo/sitemapxml', array('admin', 'registered', 'public')); 
+
+		$current_version  = Configure::read('Seo.version');
+		if($this->version != $current_version){
+			switch($this->version){
+				case '1.0':
+				default:
+			        // Add a table to the DB
+			        App::import('Core', 'File');
+			        App::import('Model', 'CakeSchema', false);
+					App::import('Model', 'ConnectionManager');
+			
+					$db = ConnectionManager::getDataSource('default');
+					if(!$db->isConnected()) {
+						$this->Session->setFlash(__('Could not connect to database.', true));
+					} else {
+						$schema =& new CakeSchema(array('plugin'=>'seo','name'=>'seo'));
+						$schema = $schema->load();
+						foreach($schema->tables as $table => $fields) {
+							$create = $db->createSchema($schema, $table);
+							$db->execute($create);
+						} 
+					}      
+
+				break;
+	        }
+		}
+
        
         $controller->Setting->write('Seo.remove_settings_on_deactivate','NO',array('description' => 'Remove settings on deactivate','editable' => 1));
         
@@ -87,32 +114,6 @@ class SeoActivation {
         $controller->Setting->write('Seo.twitter_consumer_secret','',array('description' => 'Twitter Consumer Secret','editable' => 1));
         $controller->Setting->write('Seo.twitter_access_token','',array('description' => 'Twitter Access Token','editable' => 1));
         $controller->Setting->write('Seo.twitter_access_token_secret','',array('description' => 'Twitter Access Secret','editable' => 1));
-
-		$current_version  = Configure::read('Seo.version');
-		if($this->version != $current_version){
-			switch($this->version){
-				case '1.0':
-				default:
-			        // Add a table to the DB
-			        App::import('Core', 'File');
-			        App::import('Model', 'CakeSchema', false);
-					App::import('Model', 'ConnectionManager');
-			
-					$db = ConnectionManager::getDataSource('default');
-					if(!$db->isConnected()) {
-						$this->Session->setFlash(__('Could not connect to database.', true));
-					} else {
-						$schema =& new CakeSchema(array('plugin'=>'seo','name'=>'seo'));
-						$schema = $schema->load();
-						foreach($schema->tables as $table => $fields) {
-							$create = $db->createSchema($schema, $table);
-							$db->execute($create);
-						} 
-					}      
-
-				break;
-	        }
-		}
 
         $controller->loadModel('Region');
         $controller->Region->create();
