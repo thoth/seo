@@ -193,7 +193,6 @@ class SeoHelper extends AppHelper {
  */
     public function afterSetNode() {
         // field values can be changed from hooks
-        $this->Layout->setNodeField('title', $this->Layout->node('title') . ' [Modified by ExampleHelper]');
     }
 /**
  * Called before LayoutHelper::nodeInfo()
@@ -201,7 +200,6 @@ class SeoHelper extends AppHelper {
  * @return string
  */
     public function beforeNodeInfo() {
-        return '<p>beforeNodeInfo</p>';
     }
 /**
  * Called after LayoutHelper::nodeInfo()
@@ -209,7 +207,6 @@ class SeoHelper extends AppHelper {
  * @return string
  */
     public function afterNodeInfo() {
-        return '<p>afterNodeInfo</p>';
     }
 /**
  * Called before LayoutHelper::nodeBody()
@@ -217,7 +214,6 @@ class SeoHelper extends AppHelper {
  * @return string
  */
     public function beforeNodeBody() {
-        return '<p>beforeNodeBody</p>';
     }
 /**
  * Called after LayoutHelper::nodeBody()
@@ -225,7 +221,6 @@ class SeoHelper extends AppHelper {
  * @return string
  */
     public function afterNodeBody() {
-        return '<p>afterNodeBody</p>';
     }
 /**
  * Called before LayoutHelper::nodeMoreInfo()
@@ -233,7 +228,6 @@ class SeoHelper extends AppHelper {
  * @return string
  */
     public function beforeNodeMoreInfo() {
-        return '<p>beforeNodeMoreInfo</p>';
     }
 /**
  * Called after LayoutHelper::nodeMoreInfo()
@@ -241,7 +235,6 @@ class SeoHelper extends AppHelper {
  * @return string
  */
     public function afterNodeMoreInfo() {
-        return '<p>afterNodeMoreInfo</p>';
     }
 }
 ?>
