@@ -19,24 +19,6 @@ class SeoActivation {
  * @return boolean
  */
     public function beforeActivation(&$controller) {
-        return true;
-    }
-/**
- * Called after activating the plugin in ExtensionsPluginsController::admin_toggle()
- *
- * @param object $controller Controller
- * @return void
- */
-    public function onActivation(&$controller) {
-        // ACL: set ACOs with permissions
-        $controller->Croogo->addAco('Seo'); 
-        $controller->Croogo->addAco('Seo/admin_index', array('admin')); 
-        $controller->Croogo->addAco('Seo/admin_dashboard', array('admin'));
-        $controller->Croogo->addAco('Seo/admin_twitter', array('admin'));
-        $controller->Croogo->addAco('Seo/index', array('admin', 'registered', 'public'));
-        $controller->Croogo->addAco('Seo/sitemap', array('admin', 'registered', 'public')); 
-        $controller->Croogo->addAco('Seo/sitemapxml', array('admin', 'registered', 'public')); 
-
 		$current_version  = Configure::read('Seo.version');
 		if($this->version != $current_version){
 			switch($this->version){
@@ -62,6 +44,24 @@ class SeoActivation {
 				break;
 	        }
 		}
+
+        return true;
+    }
+/**
+ * Called after activating the plugin in ExtensionsPluginsController::admin_toggle()
+ *
+ * @param object $controller Controller
+ * @return void
+ */
+    public function onActivation(&$controller) {
+        // ACL: set ACOs with permissions
+        $controller->Croogo->addAco('Seo'); 
+        $controller->Croogo->addAco('Seo/admin_index', array('admin')); 
+        $controller->Croogo->addAco('Seo/admin_dashboard', array('admin'));
+        $controller->Croogo->addAco('Seo/admin_twitter', array('admin'));
+        $controller->Croogo->addAco('Seo/index', array('admin', 'registered', 'public'));
+        $controller->Croogo->addAco('Seo/sitemap', array('admin', 'registered', 'public')); 
+        $controller->Croogo->addAco('Seo/sitemapxml', array('admin', 'registered', 'public')); 
 
        
         $controller->Setting->write('Seo.remove_settings_on_deactivate','NO',array('description' => 'Remove settings on deactivate','editable' => 1));
