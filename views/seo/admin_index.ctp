@@ -1,6 +1,7 @@
 <?php
 	
 	$this->Html->css('/seo/css/seo.css', null, array('inline'=>false));
+	$this->Html->script('/seo/js/charCount.js', null, array('inline'=>false));
 
 ?>
 

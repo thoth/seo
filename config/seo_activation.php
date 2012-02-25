@@ -39,10 +39,10 @@ class SeoActivation {
 
 		$current_version  = Configure::read('Seo.version');
 		if($this->version != $current_version){
-			switch($this->version){
+			switch($current_version){
 				case '1.0':
 				default:
-			        // Add a table to the DB
+   			        // Add a table to the DB
 			        App::import('Core', 'File');
 			        App::import('Model', 'CakeSchema', false);
 					App::import('Model', 'ConnectionManager');
