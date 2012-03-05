@@ -107,9 +107,9 @@ class SeoHelper extends AppHelper {
 		//Stolen directly from Fahad... :)
 
 	    $metaForLayout = array();
-        if (isset($this->View->viewVars['node']['Seo']) &&
-            count($this->View->viewVars['node']['Seo']) > 0) {
-            foreach ($this->View->viewVars['node']['Seo'] AS $key => $value) {
+        if (isset($this->Layout->View->viewVars['node']['Seo']) &&
+            count($this->Layout->View->viewVars['node']['Seo']) > 0) {
+            foreach ($this->Layout->View->viewVars['node']['Seo'] AS $key => $value) {
                 if (strstr($key, 'meta_')) {
                     $key = str_replace('meta_', '', $key);
                     if(Configure::read('Seo.insert_meta_'.$key) > 0){
@@ -118,13 +118,16 @@ class SeoHelper extends AppHelper {
                 }
             }
         }
+
 		if($this->Layout->View->here == '/'){
 			$metaForLayout['description'] = Configure::read('Seo.homepage_description');
 		}
 
         $output = '';
         foreach ($metaForLayout AS $name => $content) {
-            $output .= '<meta name="' . $name . '" content="' . $content . '" />';
+        	if(strlen($content)){
+	            $output .= '<meta name="' . $name . '" content="' . $content . '" />';
+	        }
         }
 
         if(strlen(Configure::read('Seo.alexa_verification_key'))>0){    
