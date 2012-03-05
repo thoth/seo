@@ -449,6 +449,8 @@ class SeoController extends SeoAppController {
 			//if node has meta then add to SEO
 			if(count($node['Seo']) > 0){
 				$seo['id'] = $node['Seo']['id'];
+			} else {
+				$this->Seo->create();
 			}
 			
 			$seo['node_id'] = $node['Node']['id'];
@@ -459,9 +461,9 @@ class SeoController extends SeoAppController {
 			}
 			
 			if($this->Seo->save($seo)){
-				debug('saved');
+				//debug('saved');
 			} else {
-				debug('failed');
+				//debug('failed');
 			}
 			$seo = null;			
 		}
