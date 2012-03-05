@@ -28,26 +28,23 @@ class SeoBehavior extends ModelBehavior {
          * @return void
          */
         public function setup(&$model, $config = array()) {
-                if (is_string($config)) {
-                        $config = array($config);
-                }
+            if (is_string($config)) {
+                    $config = array($config);
+            }
 
-                $this->settings[$model->alias] = $config;
-                
-			//if($model->name == 'Node'){    	
-		    	$model->bindModel(
-		        	array(
-		        		'hasMany'=>array(
-		        			'Seo'=>array(
-								'className'     => 'Seo',
-								'foreignKey'    => 'node_id',
-		        			)
-		        		)
-		        	),
-		        	false
-		    	);
-	    	//}
-                
+            $this->settings[$model->alias] = $config;
+            
+	    	$model->bindModel(
+	        	array(
+	        		'hasOne'=>array(
+	        			'Seo'=>array(
+							'className'     => 'Seo',
+							'foreignKey'    => 'node_id',
+	        			)
+	        		)
+	        	),
+	        	false
+	    	);
         }
 
 
@@ -62,7 +59,7 @@ class SeoBehavior extends ModelBehavior {
          public function  afterFind(&$model, $results, $primary) {
                 parent::afterFind($model, $results, $primary);
 
-                if ($model->type != 'seo') {
+                if ($model->name != 'Seo') {
                         if ($primary && isset($results[0][$model->alias])) {
                             foreach ($results AS $i => $result) {
                                 if (isset($results[$i][$model->alias]['title'])) {
@@ -75,7 +72,6 @@ class SeoBehavior extends ModelBehavior {
                             }
                         }
                 }
-
                 return $results;
 
         }
@@ -88,29 +84,30 @@ class SeoBehavior extends ModelBehavior {
          * @return array
          */
         private function _getSeo(&$model, $node_id) {
+            if (!is_object($this->Seo)) {
+            	$this->Seo = ClassRegistry::init('Seo.Seo');
+            }
 
-                if (!is_object($this->Seo)) {
-                        $this->Seo = ClassRegistry::init('Seo.Seo');
-                }
+            // unbind unnecessary models from Node model
+            $model->unbindModel(array(
+                'belongsTo' => array('User'),
+                'hasMany' => array('Comment', 'Meta'),
+                'hasAndBelongsToMany' => array('Taxonomy')
+            ));
+            
+            $model->recursive = 0;
+            
+            App::import('Model', 'Seo.Seo');
+            $seomodel = new Seo();
 
-                // unbind unnecessary models from Node model
-                $model->unbindModel(array(
-                    'belongsTo' => array('User'),
-                    'hasMany' => array('Comment', 'Meta'),
-                    'hasAndBelongsToMany' => array('Taxonomy')
-                ));
-                
-                $model->recursive = 0;
-                $seos = $model->Seo->find('first', array(
-                    'conditions' => array('Seo.node_id' => $node_id)
-                ));
-                
-                if(count($seos)> 0){
-	                return $seos['Seo'];            
-                } else {
-                	return null;
-                }
-                
+            $seos = $seomodel->find('first', array(
+                'conditions' => array('Seo.node_id' => $node_id)
+            ));
+            if(count($seos)> 0){
+                return $seos['Seo'];            
+            } else {
+            	return null;
+            }
 
         }
 

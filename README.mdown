@@ -1,0 +1,27 @@
+# Croogo: SEO Plugin
+
+**SEO** is a free, open source, SEO Manager that sits on top of the Croogo content management system for PHP, released under [MIT License].
+
+It is powered by [CakePHP](http://cakephp.org) MVC framework.
+
+## Requirements
+  * Apache with mod_rewrite
+  * PHP 5.2 or higher
+  * MySQL 4.1 or higher
+
+## Installation
+
+#### Web based installer
+
+  * Upload the .zip file through Croogo's extension manager.
+
+#### Manual installation
+
+  * Extract the archive. Upload the content to your Croogo installation in the ./app/plugins/seo directory.
+  * visit Croogo's extension system to "activate" the plugin.
+
+## Links
+
+  * **Official website**: [http://tigerclawtech.com/page/croogo-seo-plugin](http://tigerclawtech.com/page/croogo-seo-plugin)
+  * **Downloads**: [https://github.com/thoth/seo/downloads](https://github.com/thoth/seo/downloads)
+  

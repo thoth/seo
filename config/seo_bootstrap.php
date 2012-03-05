@@ -16,7 +16,7 @@
  *
  * This plugin's Seo component will be loaded in ALL controllers.
  */
-//    Croogo::hookComponent('*', 'Seo.Seo');
+    Croogo::hookComponent('Nodes', 'Seo.Seo');
 /**
  * Helper
  *

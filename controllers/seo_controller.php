@@ -35,7 +35,7 @@ class SeoController extends SeoAppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        
+
 		$this->loadModel('Setting');
 
         $this->loadModel('Contact');
@@ -71,7 +71,6 @@ class SeoController extends SeoAppController {
 
     public function admin_index() {
         $this->set('title_for_layout', __('SEO/OM - General Options', true));
-        
         if(!empty($this->data)) {
             $settings =& ClassRegistry::init('Setting');
             foreach ($this->data['Seo'] as $key=>$setting) {
@@ -430,5 +429,44 @@ class SeoController extends SeoAppController {
 		
 	}
 
+	function admin_nodestats($node_id = null){
+	
+		if(!empty($node_id)){
+	        $node = $this->Node->read(null, $node_id);
+	
+			$this->autoLayout = false;
+			App::import('Vendor', 'Seo.SEOstats', array('file'=>'src'.DS.'class.seostats.php'));
+			$seostats = new SEOStats('http://'.$_SERVER['SERVER_NAME'].$node['Node']['path']); //'http://'.$_SERVER['SERVER_NAME'].$this->data['Node']['path']);
+			$this->set(compact('seostats'));
+		}
+	}
+
+	function admin_convertfromcustom(){
+		//get a list of all nodes
+		$nodes = $this->Node->find('all');
+
+		foreach($nodes as $node){
+			//if node has meta then add to SEO
+			if(count($node['Seo']) > 0){
+				$seo['id'] = $node['Seo']['id'];
+			}
+			
+			$seo['node_id'] = $node['Node']['id'];
+			foreach($node['Meta'] as $meta){
+				if(preg_match('/meta_/', $meta['key'])){
+					$seo[$meta['key']] = $meta['value'];
+				}
+			}
+			
+			if($this->Seo->save($seo)){
+				debug('saved');
+			} else {
+				debug('failed');
+			}
+			$seo = null;			
+		}
+        $this->Session->setFlash(__('META tags updated', true));
+        $this->redirect(array('action'=>'index'));
+	}
 }
 ?>
