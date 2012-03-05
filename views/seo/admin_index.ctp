@@ -1,7 +1,7 @@
 <?php
 	
 	$this->Html->css('/seo/css/seo.css', null, array('inline'=>false));
-	$this->Html->script('/seo/js/charCount.js', null, array('inline'=>false));
+	$this->Html->script('/seo/js/charCount.js', array('inline'=>false));
 
 ?>
 
@@ -47,7 +47,7 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 			'Seo.insert_meta_keywords.value'=>array('default' => $inputs['insert_meta_keywords']['value'], 'label' => 'Insert META Keywords', 'options'=>$yes_no),
 			'Seo.insert_meta_description.value'=>array('default' => $inputs['insert_meta_description']['value'], 'label' => 'Insert META Description', 'options'=>$yes_no),
 			'Seo.insert_meta_robots.value'=>array('default' => $inputs['insert_meta_robots']['value'], 'label' => 'Insert META Robots', 'options'=>$yes_no),
-			'Seo.meta_robots_default.value'=>array('default' => $inputs['meta_robots_default']['value'], 'label' => 'META Robots Default'),
+			'Seo.meta_robots_default.value'=>array('default' => $inputs['meta_robots_default']['value'], 'label' => 'META Robots Default', 'after'=>$this->Html->link('Click to import META from "Custom Fields"', array('plugin'=>'seo', 'action'=>'convertfromcustom')).' (this will overwrite anything you have put in SEO tab...)' ),
 		)
 	);
 

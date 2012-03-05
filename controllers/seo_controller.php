@@ -441,5 +441,32 @@ class SeoController extends SeoAppController {
 		}
 	}
 
+	function admin_convertfromcustom(){
+		//get a list of all nodes
+		$nodes = $this->Node->find('all');
+
+		foreach($nodes as $node){
+			//if node has meta then add to SEO
+			if(count($node['Seo']) > 0){
+				$seo['id'] = $node['Seo']['id'];
+			}
+			
+			$seo['node_id'] = $node['Node']['id'];
+			foreach($node['Meta'] as $meta){
+				if(preg_match('/meta_/', $meta['key'])){
+					$seo[$meta['key']] = $meta['value'];
+				}
+			}
+			
+			if($this->Seo->save($seo)){
+				debug('saved');
+			} else {
+				debug('failed');
+			}
+			$seo = null;			
+		}
+        $this->Session->setFlash(__('META tags updated', true));
+        $this->redirect(array('action'=>'index'));
+	}
 }
 ?>

@@ -36,7 +36,7 @@ class SeoBehavior extends ModelBehavior {
             
 	    	$model->bindModel(
 	        	array(
-	        		'hasMany'=>array(
+	        		'hasOne'=>array(
 	        			'Seo'=>array(
 							'className'     => 'Seo',
 							'foreignKey'    => 'node_id',
@@ -59,7 +59,7 @@ class SeoBehavior extends ModelBehavior {
          public function  afterFind(&$model, $results, $primary) {
                 parent::afterFind($model, $results, $primary);
 
-                if ($model->type != 'seo') {
+                if ($model->name != 'Seo') {
                         if ($primary && isset($results[0][$model->alias])) {
                             foreach ($results AS $i => $result) {
                                 if (isset($results[$i][$model->alias]['title'])) {
@@ -72,7 +72,6 @@ class SeoBehavior extends ModelBehavior {
                             }
                         }
                 }
-
                 return $results;
 
         }
@@ -86,7 +85,7 @@ class SeoBehavior extends ModelBehavior {
          */
         private function _getSeo(&$model, $node_id) {
             if (!is_object($this->Seo)) {
-                    $this->Seo = ClassRegistry::init('Seo.Seo');
+            	$this->Seo = ClassRegistry::init('Seo.Seo');
             }
 
             // unbind unnecessary models from Node model
@@ -97,10 +96,13 @@ class SeoBehavior extends ModelBehavior {
             ));
             
             $model->recursive = 0;
-            $seos = $model->Seo->find('first', array(
+            
+            App::import('Model', 'Seo.Seo');
+            $seomodel = new Seo();
+
+            $seos = $seomodel->find('first', array(
                 'conditions' => array('Seo.node_id' => $node_id)
             ));
-            
             if(count($seos)> 0){
                 return $seos['Seo'];            
             } else {
