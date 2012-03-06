@@ -159,10 +159,6 @@ class SeoHelper extends AppHelper {
 			if($this->Layout->View->params['controller'] == 'contacts' && $this->Layout->View->params['action'] == 'view'){
 	    		//debug($this); exit();
     			//need to inject a conversion block if we have one for the contact form
-<<<<<<< HEAD
-	        	if(strlen(Configure::read('Seo.adwords_conversion.'.$this->Layout->View->params['pass'][0].'.conversion_id')) > 0){
-	        		echo $this->Layout->View->element('google_adwords_conversion', array('plugin' => 'seo'));	
-=======
 	        	if(strlen(Configure::read('Seo.adwords_conversion_key_'.$this->Layout->View->params['pass'][0])) > 0){
 
 	        		$element = $this->Layout->View->element('google_adwords_conversion', array('plugin' => 'seo'));	
@@ -173,10 +169,8 @@ class SeoHelper extends AppHelper {
 	        		$element = str_replace('{{google_conversion_label}}', Configure::read('Seo.adwords_conversion_label_'.$this->Layout->View->params['pass'][0]), $element);
 	        		$element = str_replace('{{google_conversion_value}}', Configure::read('Seo.adwords_conversion_value_'.$this->Layout->View->params['pass'][0]), $element);
 					echo $element;
->>>>>>> 8d3d379731b38b26a50b01fb8ba79be83d55cd82
     			}
     			
-	    		debug($this); exit();
     		}
 
         }
