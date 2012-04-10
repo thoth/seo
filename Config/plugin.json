@@ -1,0 +1,15 @@
+{
+	"name": "Seo",
+	"description": "SEO plugin for doing all of the mundane crap required by SEO/OM",
+
+	"author": "Thomas Rader",
+	"authorEmail": "thomas.rader@tigerclawtech.com",
+	"authorUrl": "http://tigerclawtech.com",
+
+	"dependencies": {
+		"plugins": [
+			"acl",
+			"extensions"
+			]
+		}
+}

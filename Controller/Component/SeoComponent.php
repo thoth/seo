@@ -18,10 +18,27 @@ class SeoComponent extends Object {
  * @return void
  */
  	var $controller;
+	
+	function __construct(ComponentCollection $collection, $settings = array()) {
+		parent::__construct($collection, $settings);
+    }
+
+	/**
+	 * Initialize Controller - called before Controller::beforeFilter()
+	 *
+	 * @param object $controller
+	 */
+	function initialize(&$controller) {
+		// saving the controller reference for later use
+		$this->controller =& $controller;
+
+		$this->Seo = ClassRegistry::init('Seo.Seo');
+
+	}
  
     public function startup(&$controller) {
         //$controller->set('exampleComponent', 'ExampleComponent startup');
-        $this->controller = $controller;
+        $this->controller =& $controller;
     }
 /**
  * Called after the Controller::beforeRender(), after the view class is loaded, and before the
@@ -33,8 +50,8 @@ class SeoComponent extends Object {
     public function beforeRender(&$controller) {
      	
     	//check to see if we are doing RSS
-    	
-    	if($controller->params['url']['ext'] == 'rss'){
+//debug($controller); exit();    	
+    	if(in_array('ext', $controller->request->params) && $controller->request->params['ext'] == 'rss'){
 
     		if(array_key_exists('nodes', $controller->viewVars)){
     			foreach($controller->viewVars['nodes'] as $index=>$node){

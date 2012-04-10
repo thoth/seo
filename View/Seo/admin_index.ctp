@@ -26,22 +26,22 @@
 
 	$yes_no = array(1=>'Yes', 0=>'No');
 
-echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'index', 'admin' => true)));
+echo $this->Form->create('Settings', array('url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'index', 'admin' => true)));
 
-	echo $form->input('Seo.remove_settings_on_deactivate.id', array('type' => 'hidden', 'default' => $inputs['remove_settings_on_deactivate']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.remove_settings_on_deactivate.id', array('type' => 'hidden', 'default' => $inputs['remove_settings_on_deactivate']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Plugin Settings',
 			'Seo.remove_settings_on_deactivate.value'=>array('default' => $inputs['remove_settings_on_deactivate']['value'], 'label' => 'Remove Settings on Deactivate', 'after'=>'You must type "YES" exactly to remove settings. This is to prevent losing keys, etc.' ),
 		)
 	);
 
-	echo $form->input('Seo.meta_robots_default.id', array('type' => 'hidden', 'default' => $inputs['meta_robots_default']['id'] ));
-	echo $form->input('Seo.insert_meta_robots.id', array('type' => 'hidden', 'default' => $inputs['insert_meta_robots']['id'] ));
-	echo $form->input('Seo.insert_meta_description.id', array('type' => 'hidden', 'default' => $inputs['insert_meta_description']['id'] ));
-	echo $form->input('Seo.insert_meta_keywords.id', array('type' => 'hidden', 'default' => $inputs['insert_meta_keywords']['id'] ));
+	echo $this->Form->input('Seo.meta_robots_default.id', array('type' => 'hidden', 'default' => $inputs['meta_robots_default']['id'] ));
+	echo $this->Form->input('Seo.insert_meta_robots.id', array('type' => 'hidden', 'default' => $inputs['insert_meta_robots']['id'] ));
+	echo $this->Form->input('Seo.insert_meta_description.id', array('type' => 'hidden', 'default' => $inputs['insert_meta_description']['id'] ));
+	echo $this->Form->input('Seo.insert_meta_keywords.id', array('type' => 'hidden', 'default' => $inputs['insert_meta_keywords']['id'] ));
 
-	echo $form->inputs(
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'General Settings',
 			'Seo.insert_meta_keywords.value'=>array('default' => $inputs['insert_meta_keywords']['value'], 'label' => 'Insert META Keywords', 'options'=>$yes_no),
@@ -51,16 +51,16 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 		)
 	);
 
-	echo $form->input('Seo.alexa_verification_key.id', array('type' => 'hidden', 'default' => $inputs['alexa_verification_key']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.alexa_verification_key.id', array('type' => 'hidden', 'default' => $inputs['alexa_verification_key']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Alexa',
 			'Seo.alexa_verification_key.value'=>array('default' => $inputs['alexa_verification_key']['value'], 'label' => 'Alexa Verification ID' ),
 		)
 	);
 
-	echo $form->input('Seo.bing_webmaster_tools_key.id', array('type' => 'hidden', 'default' => $inputs['bing_webmaster_tools_key']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.bing_webmaster_tools_key.id', array('type' => 'hidden', 'default' => $inputs['bing_webmaster_tools_key']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Bing',
 			'Seo.bing_webmaster_tools_key.value'=>array('default' => $inputs['bing_webmaster_tools_key']['value'], 'label' => 'Bing Webmaster Tools ID' ),
@@ -68,10 +68,10 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 	);
 
 
-	echo $form->input('Seo.changefreq.id', array('type' => 'hidden', 'default' => $inputs['changefreq']['id'] ));
-	echo $form->input('Seo.priority.id', array('type' => 'hidden', 'default' => $inputs['priority']['id'] ));
-	echo $form->input('Seo.organize_by_vocabulary.id', array('type' => 'hidden', 'default' => $inputs['organize_by_vocabulary']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.changefreq.id', array('type' => 'hidden', 'default' => $inputs['changefreq']['id'] ));
+	echo $this->Form->input('Seo.priority.id', array('type' => 'hidden', 'default' => $inputs['priority']['id'] ));
+	echo $this->Form->input('Seo.organize_by_vocabulary.id', array('type' => 'hidden', 'default' => $inputs['organize_by_vocabulary']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Sitemap Settings',
 			'Seo.changefreq.value'=>array('default' => $inputs['changefreq']['value'], 'label' => 'Change Frequency' ),
@@ -80,11 +80,11 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 		)
 	);
 
-	echo $form->input('Seo.show_per_page_stats.id', array('type' => 'hidden', 'default' => $inputs['show_per_page_stats']['id'] ));
-	echo $form->input('Seo.hook_google.id', array('type' => 'hidden', 'default' => $inputs['hook_google']['id'] ));
-	echo $form->input('Seo.hook_twitter.id', array('type' => 'hidden', 'default' => $inputs['hook_twitter']['id'] ));
-	//echo $form->input('Seo.hook_facebook.id', array('type' => 'hidden', 'default' => $inputs['hook_facebook']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.show_per_page_stats.id', array('type' => 'hidden', 'default' => $inputs['show_per_page_stats']['id'] ));
+	echo $this->Form->input('Seo.hook_google.id', array('type' => 'hidden', 'default' => $inputs['hook_google']['id'] ));
+	echo $this->Form->input('Seo.hook_twitter.id', array('type' => 'hidden', 'default' => $inputs['hook_twitter']['id'] ));
+	//echo $this->Form->input('Seo.hook_facebook.id', array('type' => 'hidden', 'default' => $inputs['hook_facebook']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'External Integration',
 			'Seo.show_per_page_stats.value'=>array('default' => $inputs['show_per_page_stats']['value'], 'label' => 'Show Page Stats on Edit Page', 'after'=>'This may significantly slow the page load for the admin edit. Service provided by <a href="http://www.nahklick.de/index.php" style="color:#003E82;" target="_blank" title="Angebote und Prospekte aus Ihrer Region">nahklick.de</a>', 'options'=>$yes_no),
@@ -95,9 +95,9 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 	);
 
 
-	echo $form->input('Seo.homepage_title.id', array('type' => 'hidden', 'default' => $inputs['homepage_title']['id'] ));
-	echo $form->input('Seo.homepage_description.id', array('type' => 'hidden', 'default' => $inputs['homepage_description']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.homepage_title.id', array('type' => 'hidden', 'default' => $inputs['homepage_title']['id'] ));
+	echo $this->Form->input('Seo.homepage_description.id', array('type' => 'hidden', 'default' => $inputs['homepage_description']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Singular Pages',
 			'Seo.homepage_title.value'=>array('default' => $inputs['homepage_title']['value'], 'label' => 'Home Page Title' ),
@@ -105,12 +105,12 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 		)
 	);
 
-	echo $form->input('Seo.add_rss_ga_campaign_tags.id', array('type' => 'hidden', 'default' => $inputs['add_rss_ga_campaign_tags']['id'] ));
-	echo $form->input('Seo.rss_ga_medium.id', array('type' => 'hidden', 'default' => $inputs['rss_ga_medium']['id'] ));
-	echo $form->input('Seo.rss_ga_campaign_name.id', array('type' => 'hidden', 'default' => $inputs['rss_ga_campaign_name']['id'] ));
-	echo $form->input('Seo.rss_before.id', array('type' => 'hidden', 'default' => $inputs['rss_before']['id'] ));
-	echo $form->input('Seo.rss_after.id', array('type' => 'hidden', 'default' => $inputs['rss_after']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.add_rss_ga_campaign_tags.id', array('type' => 'hidden', 'default' => $inputs['add_rss_ga_campaign_tags']['id'] ));
+	echo $this->Form->input('Seo.rss_ga_medium.id', array('type' => 'hidden', 'default' => $inputs['rss_ga_medium']['id'] ));
+	echo $this->Form->input('Seo.rss_ga_campaign_name.id', array('type' => 'hidden', 'default' => $inputs['rss_ga_campaign_name']['id'] ));
+	echo $this->Form->input('Seo.rss_before.id', array('type' => 'hidden', 'default' => $inputs['rss_before']['id'] ));
+	echo $this->Form->input('Seo.rss_after.id', array('type' => 'hidden', 'default' => $inputs['rss_after']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'RSS Settings',
 			'Seo.add_rss_ga_campaign_tags.value'=>array('default' => $inputs['add_rss_ga_campaign_tags']['value'], 'options'=>$yes_no, 'label' => 'Add Google Analytics Campaign Trackers to link?' ),
@@ -121,12 +121,12 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 		)
 	);
 
-	echo $form->input('Seo.add_copy_link.id', array('type' => 'hidden', 'default' => $inputs['add_copy_link']['id'] ));
-	echo $form->input('Seo.add_copy_link_ga_campaign_tags.id', array('type' => 'hidden', 'default' => $inputs['add_copy_link_ga_campaign_tags']['id'] ));
-	echo $form->input('Seo.copy_link_ga_medium.id', array('type' => 'hidden', 'default' => $inputs['copy_link_ga_medium']['id'] ));
-	echo $form->input('Seo.copy_link_ga_campaign_name.id', array('type' => 'hidden', 'default' => $inputs['copy_link_ga_campaign_name']['id'] ));
-	echo $form->input('Seo.copy_link_text.id', array('type' => 'hidden', 'default' => $inputs['copy_link_text']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.add_copy_link.id', array('type' => 'hidden', 'default' => $inputs['add_copy_link']['id'] ));
+	echo $this->Form->input('Seo.add_copy_link_ga_campaign_tags.id', array('type' => 'hidden', 'default' => $inputs['add_copy_link_ga_campaign_tags']['id'] ));
+	echo $this->Form->input('Seo.copy_link_ga_medium.id', array('type' => 'hidden', 'default' => $inputs['copy_link_ga_medium']['id'] ));
+	echo $this->Form->input('Seo.copy_link_ga_campaign_name.id', array('type' => 'hidden', 'default' => $inputs['copy_link_ga_campaign_name']['id'] ));
+	echo $this->Form->input('Seo.copy_link_text.id', array('type' => 'hidden', 'default' => $inputs['copy_link_text']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Copied Text Behavior',
 			'Seo.add_copy_link.value'=>array('default' => $inputs['add_copy_link']['value'], 'options'=>$yes_no, 'label' => 'Append some text if anyone copies text from the site?' ),
@@ -137,6 +137,6 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 		)
 	);
 	
-echo $form->end(__('Submit',true));
+echo $this->Form->end(__('Submit',true));
 
 ?>

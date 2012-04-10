@@ -43,15 +43,16 @@ class SeoActivation {
 				case '1.0':
 				default:
    			        // Add a table to the DB
-			        App::import('Core', 'File');
+			        App::uses('File', 'Utility');
 			        App::import('Model', 'CakeSchema', false);
 					App::import('Model', 'ConnectionManager');
 			
 					$db = ConnectionManager::getDataSource('default');
 					if(!$db->isConnected()) {
-						$this->Session->setFlash(__('Could not connect to database.', true));
+						$this->Session->setFlash(__('Could not connect to database.', true), 'default', array('class'=>'error'));
 					} else {
-						$schema =& new CakeSchema(array('plugin'=>'seo','name'=>'seo'));
+						CakePlugin::load('Seo');
+						$schema =& new CakeSchema(array('plugin'=>'Seo','name'=>'seo'));
 						$schema = $schema->load();
 						foreach($schema->tables as $table => $fields) {
 							$create = $db->createSchema($schema, $table);

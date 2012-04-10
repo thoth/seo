@@ -11,11 +11,11 @@
 
 <?php
 
-echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'google', 'admin' => true)));
+echo $this->Form->create('Settings', array('url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'google', 'admin' => true)));
 
-	echo $form->input('Seo.google_places_cid.id', array('type' => 'hidden', 'default' => $inputs['google_places_cid']['id'] ));
-	echo $form->input('Seo.google_plus_cid.id', array('type' => 'hidden', 'default' => $inputs['google_plus_cid']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.google_places_cid.id', array('type' => 'hidden', 'default' => $inputs['google_places_cid']['id'] ));
+	echo $this->Form->input('Seo.google_plus_cid.id', array('type' => 'hidden', 'default' => $inputs['google_plus_cid']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Google General Settings',
 			'Seo.google_places_cid.value'=>array('default' => $inputs['google_places_cid']['value'], 'label' => 'Google Places Page' ),
@@ -23,11 +23,11 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 		)
 	);
 
-	echo $form->input('Seo.google_adwords_tracking_for_messages.id', array('type' => 'hidden', 'default' => $inputs['google_webmaster_tools_key']['id'] ));
-	echo $form->input('Seo.google_webmaster_tools_key.id', array('type' => 'hidden', 'default' => $inputs['google_webmaster_tools_key']['id'] ));
-	echo $form->input('Seo.google_analytics_ua.id', array('type' => 'hidden', 'default' => $inputs['google_analytics_ua']['id'] ));
-	echo $form->input('Seo.google_analytics_domain.id', array('type' => 'hidden', 'default' => $inputs['google_analytics_domain']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.google_adwords_tracking_for_messages.id', array('type' => 'hidden', 'default' => $inputs['google_webmaster_tools_key']['id'] ));
+	echo $this->Form->input('Seo.google_webmaster_tools_key.id', array('type' => 'hidden', 'default' => $inputs['google_webmaster_tools_key']['id'] ));
+	echo $this->Form->input('Seo.google_analytics_ua.id', array('type' => 'hidden', 'default' => $inputs['google_analytics_ua']['id'] ));
+	echo $this->Form->input('Seo.google_analytics_domain.id', array('type' => 'hidden', 'default' => $inputs['google_analytics_domain']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Google',
 			'Seo.google_adwords_tracking_for_messages.value'=>array('default' => $inputs['google_adwords_tracking_for_messages']['value'], 'label' => 'Google AdWords Tracking for Messages', 'options'=>$yes_no),
@@ -48,13 +48,13 @@ var google_conversion_value = {{google_conversion_value}};
 */
 	foreach($contacts as $contact){
 
-		echo $form->input('Seo.adwords_conversion_key_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_key_'.$contact['Contact']['alias']]['id'] ));
-		echo $form->input('Seo.adwords_conversion_language_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_language_'.$contact['Contact']['alias']]['id'] ));
-		echo $form->input('Seo.adwords_conversion_format_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_format_'.$contact['Contact']['alias']]['id'] ));
-		echo $form->input('Seo.adwords_conversion_color_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_color_'.$contact['Contact']['alias']]['id'] ));
-		echo $form->input('Seo.adwords_conversion_label_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_label_'.$contact['Contact']['alias']]['id'] ));
-		echo $form->input('Seo.adwords_conversion_value_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_value_'.$contact['Contact']['alias']]['id'] ));
-		echo $form->inputs(
+		echo $this->Form->input('Seo.adwords_conversion_key_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_key_'.$contact['Contact']['alias']]['id'] ));
+		echo $this->Form->input('Seo.adwords_conversion_language_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_language_'.$contact['Contact']['alias']]['id'] ));
+		echo $this->Form->input('Seo.adwords_conversion_format_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_format_'.$contact['Contact']['alias']]['id'] ));
+		echo $this->Form->input('Seo.adwords_conversion_color_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_color_'.$contact['Contact']['alias']]['id'] ));
+		echo $this->Form->input('Seo.adwords_conversion_label_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_label_'.$contact['Contact']['alias']]['id'] ));
+		echo $this->Form->input('Seo.adwords_conversion_value_'.$contact['Contact']['alias'].'.id', array('type' => 'hidden', 'default' => $inputs['adwords_conversion_value_'.$contact['Contact']['alias']]['id'] ));
+		echo $this->Form->inputs(
 			array(
 				'legend'=>'Google Adwords Conversion for "'.$contact['Contact']['title']. '" Contact Form',
 				'Seo.adwords_conversion_key_'.$contact['Contact']['alias'].'.value'=>array('default' => $inputs['adwords_conversion_key_'.$contact['Contact']['alias']]['value'], 'label' => 'Conversion ID' ),
@@ -73,6 +73,6 @@ var google_conversion_value = {{google_conversion_value}};
 	}
 
 
-echo $form->end(__('Submit',true));
+echo $this->Form->end(__('Submit',true));
 
 ?>

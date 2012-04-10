@@ -26,19 +26,19 @@
 	</div>
 <?php
 
-echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'facebook', 'admin' => true)));
+echo $this->Form->create('Settings', array('url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'facebook', 'admin' => true)));
 
-	echo $form->input('Seo.facebook_link.id', array('type' => 'hidden', 'default' => $inputs['facebook_link']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.facebook_link.id', array('type' => 'hidden', 'default' => $inputs['facebook_link']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Facebook General Settings',
 			'Seo.facebook_link.value'=>array('default' => $inputs['facebook_link']['value'], 'label' => 'Facebook Page' ),
 		)
 	);
 
-	echo $form->input('Seo.facebook_app_key.id', array('type' => 'hidden', 'default' => $inputs['facebook_app_key']['id'] ));
-	echo $form->input('Seo.facebook_app_secret.id', array('type' => 'hidden', 'default' => $inputs['facebook_app_secret']['id'] ));
-	echo $form->inputs(
+	echo $this->Form->input('Seo.facebook_app_key.id', array('type' => 'hidden', 'default' => $inputs['facebook_app_key']['id'] ));
+	echo $this->Form->input('Seo.facebook_app_secret.id', array('type' => 'hidden', 'default' => $inputs['facebook_app_secret']['id'] ));
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Facebook Application Settings',
 			'Seo.facebook_app_key.value'=>array('default' => $inputs['facebook_app_key']['value'], 'label' => 'Facebook App ID' ),
@@ -46,6 +46,6 @@ echo $form->create('Settings', array('url' => array('plugin' => 'seo', 'controll
 		)
 	);
 	
-echo $form->end(__('Submit',true));
+echo $this->Form->end(__('Submit',true));
 
 ?>

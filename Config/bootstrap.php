@@ -28,8 +28,34 @@
  *
  * This plugin's admin_menu element will be rendered in admin panel under Extensions menu.
  */
-    Croogo::hookAdminMenu('Seo');
-/**
+    CroogoNav::add('extensions.children.seo', array(
+        'title' => __('SEO/OM'),
+        'url' => '#',
+        'access' => array('admin'),
+        'children' => array(
+            'general' => array(
+                'title' => __('General Options'),
+                'url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'index'),
+                'access' => array('admin'),
+            ),
+            'google' => array(
+                'title' => __('Google Options'),
+                'url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'google'),
+                'access' => array('admin'),
+            ),
+            'twitter' => array(
+                'title' => __('Twitter Options'),
+                'url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'twitter'),
+                'access' => array('admin'),
+            ),
+            'facebook' => array(
+                'title' => __('Facebook Options'),
+                'url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'facebook'),
+                'access' => array('admin'),
+            ),
+        ),
+    ));
+ /**
  * Admin row action
  *
  * When browsing the content list in admin panel (Content > List),

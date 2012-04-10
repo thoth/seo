@@ -11,15 +11,15 @@
 
 <?php
 
-echo $form->create('Twitter', array('url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'tweet', 'admin' => true)));
+echo $this->Form->create('Twitter', array('url' => array('plugin' => 'seo', 'controller' => 'seo', 'action' => 'tweet', 'admin' => true)));
 
-	echo $form->inputs(
+	echo $this->Form->inputs(
 		array(
 			'legend'=>'Twitter Post',
 			'post'=>array('default' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla semper pellentesque nunc ut porttitor. Praesent sem enim cras amet. http://'.$_SERVER['SERVER_NAME'].$node['Node']['path'], 'label' => false, 'type'=>'textarea'),
 		)
 	);
 	
-echo $form->end(__('Submit',true));
+echo $this->Form->end(__('Submit',true));
 
 ?>
