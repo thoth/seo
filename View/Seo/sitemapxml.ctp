@@ -11,8 +11,8 @@
     <url>
         <loc> <?php echo Router::url('/',true).ltrim($node['Node']['path'],'/'); ?> </loc>
         <lastmod> <?php echo trim($time->toAtom(strtotime($node['Node']['updated']))); ?> </lastmod>
-        <priority> <?php if(isset($node['Node']['Seo']['priority'])) echo $node['Node']['Seo']['priority']; else echo $defaults['priority']['value']; ?></priority>
-        <changefreq> <?php if(isset($node['Node']['Seo']['changefreq'])) echo $node['Node']['Seo']['changefreq']; else echo $defaults['changefreq']['value']; ?> </changefreq>
+        <priority> <?php if(isset($node['Node']['Seo']['priority']) && !empty($node['Node']['Seo']['priority'])) echo $node['Node']['Seo']['priority']; else echo $defaults['priority']['value']; ?></priority>
+        <changefreq> <?php if(isset($node['Node']['Seo']['changefreq']) && !empty($node['Node']['Seo']['changefreq'])) echo $node['Node']['Seo']['changefreq']; else echo $defaults['changefreq']['value']; ?> </changefreq>
     </url>
     <?php endif; endforeach; ?>
 </urlset> 
