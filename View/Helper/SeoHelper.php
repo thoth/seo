@@ -61,7 +61,7 @@ class SeoHelper extends AppHelper {
 				$this->Html->scriptBlock($this->replaceTokens($google_script), array('inline' => false));
 	    	}
 			
-	        if(in_array('ext', $this->request->params) && $this->request->params['ext'] == '' && strlen(Configure::read('Seo.add_copy_link'))>0){    
+	        if(in_array('ext', $this->request->params) && ($this->request->params['ext'] == '' && $this->request->params['ext'] == 'html') && strlen(Configure::read('Seo.add_copy_link'))>0){    
 	        	//grab the google analytics element and splice in changes
 	        	$copy_link = $this->view->element('copy_link', array('plugin' => 'seo'));
 	        	$copy_link = $this->replaceTokens($copy_link);
@@ -69,7 +69,7 @@ class SeoHelper extends AppHelper {
 	        	//do specific tag replacements
 	        	$campaign_tracker = '';
 	        	if(strlen(Configure::read('Seo.add_copy_link_ga_campaign_tags'))>0){
-		        	$campaign_tracker = '?utm_medium='.Configure::read('Seo.copy_link_ga_medium').'&utm_campaign='.Configure::read('Seo.copy_link_ga_campaign');
+		        	$campaign_tracker = '?utm_medium='.Configure::read('Seo.copy_link_ga_medium').'&utm_campaign='.Configure::read('Seo.copy_link_ga_campaign_name');
 	        	}
 	        	$copy_link = str_replace('{{current_page}}', 'http://'.$_SERVER['SERVER_NAME'].$this->here.$campaign_tracker, $copy_link);
 	        	$copy_link = str_replace('{{website}}', 'http://'.$_SERVER['SERVER_NAME'].$campaign_tracker, $copy_link);
