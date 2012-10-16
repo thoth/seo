@@ -51,7 +51,7 @@ class SeoComponent extends Object {
      	
     	//check to see if we are doing RSS
 //debug($controller); exit();    	
-    	if(in_array('ext', $controller->request->params) && $controller->request->params['ext'] == 'rss'){
+    	if(array_key_exists('ext', $controller->request->params) && $controller->request->params['ext'] == 'rss'){
 
     		if(array_key_exists('nodes', $controller->viewVars)){
     			foreach($controller->viewVars['nodes'] as $index=>$node){

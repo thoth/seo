@@ -57,7 +57,7 @@ class SeoHelper extends AppHelper {
 	        //check settings for adding tools
 	        if(strlen(Configure::read('Seo.google_analytics_ua'))>0){    
 	        	//grab the google analytics element and splice in changes
-	        	$google_script = $this->view->element('google_analytics', array('plugin' => 'seo'));
+	        	$google_script = $this->view->element('google_analytics', array(), array('plugin' => 'seo'));
 				$this->Html->scriptBlock($this->replaceTokens($google_script), array('inline' => false));
 	    	}
 			
@@ -93,7 +93,7 @@ class SeoHelper extends AppHelper {
 	    		//debug($this->view); exit();
     		}
 			
-	    	$google_script = $this->view->element('google_plusone', array('plugin' => 'seo'));
+	    	$google_script = $this->view->element('google_plusone', array(), array('plugin' => 'seo'));
 			$this->Html->scriptBlock($this->replaceTokens($google_script), array('inline' => false));
 
         }
@@ -136,15 +136,15 @@ class SeoHelper extends AppHelper {
         }
 
         if(strlen(Configure::read('Seo.alexa_verification_key'))>0){    
-	       $output .= $this->replaceTokens($this->view->element('alexa_verification', array('plugin' => 'seo')));
+	       $output .= $this->replaceTokens($this->view->element('alexa_verification', array(), array('plugin' => 'seo')));
 		}		
 
         if(strlen(Configure::read('Seo.bing_webmaster_tools_key'))>0){    
-	       $output .= $this->replaceTokens($this->view->element('bing_webmaster_tools', array('plugin' => 'seo')));
+	       $output .= $this->replaceTokens($this->view->element('bing_webmaster_tools', array(), array('plugin' => 'seo')));
 		}		
 
         if(strlen(Configure::read('Seo.google_webmaster_tools_key'))>0){    
-	       $output .= $this->replaceTokens($this->view->element('google_webmaster_tools', array('plugin' => 'seo')));
+	       $output .= $this->replaceTokens($this->view->element('google_webmaster_tools', array(), array('plugin' => 'seo')));
 		}		
 
         return $output;	
@@ -166,7 +166,7 @@ class SeoHelper extends AppHelper {
     			//need to inject a conversion block if we have one for the contact form
 	        	if(strlen(Configure::read('Seo.adwords_conversion_key_'.$this->request->params['pass'][0])) > 0){
 
-	        		$element = $this->view->element('google_adwords_conversion', array('plugin' => 'seo'));	
+	        		$element = $this->view->element('google_adwords_conversion', array(), array('plugin' => 'seo'));	
 	        		$element = str_replace('{{google_conversion_key}}', Configure::read('Seo.adwords_conversion_key_'.$this->request->params['pass'][0]), $element);
 	        		$element = str_replace('{{google_conversion_language}}', Configure::read('Seo.adwords_conversion_language_'.$this->request->params['pass'][0]), $element);
 	        		$element = str_replace('{{google_conversion_format}}', Configure::read('Seo.adwords_conversion_format_'.$this->request->params['pass'][0]), $element);
