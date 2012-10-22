@@ -37,12 +37,7 @@ class SeoHelper extends AppHelper {
  * @return void
  */
     public function beforeRender() {
-
-		if($this->request->here == '/'){
-			$this->view->set('title_for_layout', Configure::read('Seo.homepage_title'));
-			//$this->view->viewVars['title_for_layout'] = Configure::read('Seo.homepage_title');
-		}
-  	
+ 	
     	if (!empty($this->request->params['prefix']) && ($this->request->params['prefix'] == 'admin')) {
     		//don't want to add tracking stuff here but do want to mod some default settings
     		
@@ -186,7 +181,12 @@ class SeoHelper extends AppHelper {
  * @return void
  */
     public function beforeLayout() {
-    }
+
+		if($this->request->here == '/'){
+			$this->view->set('title_for_layout', Configure::read('Seo.homepage_title'));
+			//$this->view->viewVars['title_for_layout'] = Configure::read('Seo.homepage_title');
+		}
+     }
 /**
  * After layout callback. Called after the layout has rendered.
  *
