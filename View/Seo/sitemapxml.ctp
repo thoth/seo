@@ -1,7 +1,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc><?php echo Router::url('/',true); ?> </loc>
-      <lastmod><?php echo trim($time->toAtom(time())); ?></lastmod>
+      <lastmod><?php echo trim($this->Time->toAtom(time())); ?></lastmod>
       <changefreq>monthly</changefreq>
       <priority>1</priority>
    </url>
@@ -10,7 +10,7 @@
    ?>
     <url>
         <loc> <?php echo Router::url('/',true).ltrim($node['Node']['path'],'/'); ?> </loc>
-        <lastmod> <?php echo trim($time->toAtom(strtotime($node['Node']['updated']))); ?> </lastmod>
+        <lastmod> <?php echo trim($this->Time->toAtom(strtotime($node['Node']['updated']))); ?> </lastmod>
         <priority> <?php if(isset($node['Node']['Seo']['priority']) && !empty($node['Node']['Seo']['priority'])) echo $node['Node']['Seo']['priority']; else echo $defaults['priority']['value']; ?></priority>
         <changefreq> <?php if(isset($node['Node']['Seo']['changefreq']) && !empty($node['Node']['Seo']['changefreq'])) echo $node['Node']['Seo']['changefreq']; else echo $defaults['changefreq']['value']; ?> </changefreq>
     </url>
