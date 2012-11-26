@@ -211,6 +211,7 @@ class SeoController extends SeoAppController {
         $this->layout = 'xml/default';        
         $this->Node->contain('Seo');
         $sitemapData = $this->__getSiteMapData($this->Node->find('all',array('conditions' => array('Node.status =' => 1))));
+
         $this->set(compact('sitemapData'));
         $this->RequestHandler->respondAs('xml');
     }

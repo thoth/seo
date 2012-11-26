@@ -10,7 +10,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.tigerclawtech.com
  */
-class SeoComponent extends Object {
+class SeoComponent extends Component {
 /**
  * Called after the Controller::beforeFilter() and before the controller action
  *
