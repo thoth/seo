@@ -37,7 +37,6 @@ class SeoHelper extends AppHelper {
  * @return void
  */
     public function beforeRender() {
-	
     	if (!empty($this->request->params['prefix']) && ($this->request->params['prefix'] == 'admin')) {
     		//don't want to add tracking stuff here but do want to mod some default settings
     		
