@@ -49,7 +49,11 @@ class SeoHelper extends AppHelper {
 
         } else {
 	        //check settings for adding tools
-	        if(strlen(Configure::read('Seo.google_analytics_ua'))>0){    
+	        if(strlen(Configure::read('Seo.google_tag_manager'))>0){    
+	        	//grab the google analytics element and splice in changes
+	        	$google_script = $this->view->element('google_tag_manager', array(), array('plugin' => 'seo'));
+				$this->Html->scriptBlock($this->replaceTokens($google_script), array('inline' => false));
+	    	} elseif(strlen(Configure::read('Seo.google_analytics_ua'))>0){    
 	        	//grab the google analytics element and splice in changes
 	        	$google_script = $this->view->element('google_analytics', array(), array('plugin' => 'seo'));
 				$this->Html->scriptBlock($this->replaceTokens($google_script), array('inline' => false));

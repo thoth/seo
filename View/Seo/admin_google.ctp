@@ -23,6 +23,7 @@ echo $this->Form->create('Settings', array('url' => array('plugin' => 'seo', 'co
 		)
 	);
 
+	echo $this->Form->input('Seo.google_tag_manager.id', array('type' => 'hidden', 'default' => $inputs['google_tag_manager']['id'] ));
 	echo $this->Form->input('Seo.google_adwords_tracking_for_messages.id', array('type' => 'hidden', 'default' => $inputs['google_webmaster_tools_key']['id'] ));
 	echo $this->Form->input('Seo.google_webmaster_tools_key.id', array('type' => 'hidden', 'default' => $inputs['google_webmaster_tools_key']['id'] ));
 	echo $this->Form->input('Seo.google_analytics_ua.id', array('type' => 'hidden', 'default' => $inputs['google_analytics_ua']['id'] ));
@@ -32,6 +33,7 @@ echo $this->Form->create('Settings', array('url' => array('plugin' => 'seo', 'co
 			'legend'=>'Google',
 			'Seo.google_adwords_tracking_for_messages.value'=>array('default' => $inputs['google_adwords_tracking_for_messages']['value'], 'label' => 'Google AdWords Tracking for Messages', 'options'=>$yes_no),
 			'Seo.google_webmaster_tools_key.value'=>array('default' => $inputs['google_webmaster_tools_key']['value'], 'label' => 'Google Webmaster Tools Key' ),
+			'Seo.google_tag_manager.value'=>array('default' => $inputs['google_tag_manager']['value'], 'label' => 'Google Tag Manager Code', 'after'=>'Setting this will override the use of the below (you will need to manage these in the Google Tag Manager Interface)'),
 			'Seo.google_analytics_ua.value'=>array('default' => $inputs['google_analytics_ua']['value'], 'label' => 'Google Analytics UA' ),
 			'Seo.google_analytics_domain.value'=>array('default' => $inputs['google_analytics_domain']['value'], 'label' => 'Google Analytics Domain' ),
 		)

@@ -41,7 +41,6 @@ class SeoActivation {
 		if($this->version != $current_version){
 			switch($current_version){
 				case '1.0':
-				default:
    			        // Add a table to the DB
 			        App::uses('File', 'Utility');
 			        App::import('Model', 'CakeSchema', false);
@@ -52,7 +51,7 @@ class SeoActivation {
 						$this->Session->setFlash(__('Could not connect to database.', true), 'default', array('class'=>'error'));
 					} else {
 						CakePlugin::load('Seo');
-						$schema =& new CakeSchema(array('plugin'=>'Seo','name'=>'seo'));
+						$schema =& new CakeSchema(array('plugin'=>'Seo','name'=>'Seo'));
 						$schema = $schema->load();
 						foreach($schema->tables as $table => $fields) {
 							$create = $db->createSchema($schema, $table);
@@ -87,6 +86,7 @@ class SeoActivation {
         $controller->Setting->write('Seo.google_analytics_domain','your-site.com',array('description' => 'Google Analytics Domain','editable' => 1));
         $controller->Setting->write('Seo.google_places_cid','',array('description' => 'Google Places CID','editable' => 1));
         $controller->Setting->write('Seo.google_plus_cid','',array('description' => 'Google Plus CID','editable' => 1));
+        $controller->Setting->write('Seo.google_tag_manager','XXXX-XXXX',array('description' => 'Google Tag Manager Code','editable' => 1));
 
         $controller->Setting->write('Seo.meta_robots_default','INDEX, FOLLOW',array('description' => 'Default robots entry for individual pages','editable' => 1));
         $controller->Setting->write('Seo.insert_meta_description','1',array('description' => 'Insert META Description tag?','editable' => 1));
@@ -196,6 +196,7 @@ class SeoActivation {
 	        $controller->Setting->deleteKey('Seo.google_analytics_domain');
 	        $controller->Setting->deleteKey('Seo.google_places_cid');
 	        $controller->Setting->deleteKey('Seo.google_plus_cid');
+	        $controller->Setting->deleteKey('Seo.google_tag_manager');
 	        
 	        $controller->Setting->deleteKey('Seo.changefreq');
 	        $controller->Setting->deleteKey('Seo.priority');

@@ -397,6 +397,7 @@ class SeoController extends SeoAppController {
         
 		if(!empty($this->data)){
 			App::import('Vendor', 'Seo.HttpSocketOauth');
+			//App::uses('HttpSocketOauth', 'Seo.Vendor');
 			$Http = new HttpSocketOauth();
 			$request = array(
 				'method' => 'POST',
@@ -417,10 +418,10 @@ class SeoController extends SeoAppController {
 			);
 			$response = json_decode($Http->request($request));
 	
-			if(strlen($response->{'error'}) > 0){
-		        $this->Session->setFlash('FAIL: '.$response->{'error'});
+			if(isset($response->error) || property_exists($response, 'error')){
+		        $this->Session->setFlash('FAIL: '.$response->error);
 			} else {
-		        $this->Session->setFlash('"'.$response->{'text'}.'" successfully posted!');
+		        $this->Session->setFlash('"'.$response->text.'" successfully posted!');
 				$this->redirect(array('controller'=>'nodes','action'=>'index', 'plugin'=>false));
 			}
 		}

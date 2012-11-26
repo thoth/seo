@@ -1,6 +1,5 @@
 <?php
-App::import('Core', 'HttpSocket');
-
+App::uses('HttpSocket', 'Network/Http');
 /**
  * Extension to CakePHP core HttpSocket class that overrides the request method
  * and intercepts requests whose $request['auth']['method'] param is 'OAuth'.
