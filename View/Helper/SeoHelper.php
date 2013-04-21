@@ -42,7 +42,7 @@ class SeoHelper extends AppHelper {
     		
     		//we want to coerce the dashboard to pull in our content
     		if($this->request->params['action'] == 'admin_dashboard'){
-	        	$dashboard = $this->view->element('admin_dashboard_loader', array('plugin' => 'seo'));
+	        	$dashboard = $this->view->element('admin_dashboard_loader', array(), array('plugin' => 'seo'));
 				$this->Html->scriptBlock($this->replaceTokens($dashboard), array('inline' => false));
 	    		//debug($this->view); exit();
     		}

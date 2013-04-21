@@ -25,7 +25,7 @@ class SeoController extends SeoAppController {
  * @var array
  * @access public
  */
-    public $uses = array('Node', 'Vocabulary', 'Seo');
+    public $uses = array('Nodes.Node', 'Taxonomy.Vocabulary', 'Seo');
     
     public $components = array('RequestHandler');
     
@@ -36,9 +36,9 @@ class SeoController extends SeoAppController {
     public function beforeFilter() {
         parent::beforeFilter();
 
-		$this->loadModel('Setting');
+		$this->loadModel('Settings.Setting');
 
-        $this->loadModel('Contact');
+        $this->loadModel('Contacts.Contact');
         $contacts = $this->Contact->find('all',array('conditions' => array('Contact.status' => 1)));
         foreach($contacts as $contact){
 			//check for existance of key--If not there, we assume is new and stuff a default
@@ -60,7 +60,6 @@ class SeoController extends SeoAppController {
 			$this->defaults[$cleaned_key[1]]['id'] = $setting['Setting']['id'];
 			$this->defaults[$cleaned_key[1]]['value'] = $setting['Setting']['value'];
 		}
-		
         $this->set('defaults', $this->defaults);
     	
     	$this->Node->bindModel(
@@ -126,7 +125,7 @@ class SeoController extends SeoAppController {
             $this->redirect(array('action'=>'google'));
         }
         
-        $this->loadModel('Contact');
+        $this->loadModel('Contacts.Contact');
         $contacts = $this->Contact->find('all',array('conditions' => array('Contact.status =' => 1)));
         foreach($contacts as $contact){
 			//check for existance of key--If not there, we assume is new and stuff a default
@@ -141,7 +140,7 @@ class SeoController extends SeoAppController {
 			}
 	
         }
-        $this->set('inputs', $this->defaults);
+       $this->set('inputs', $this->defaults);
         
         $this->set(compact('contacts'));
         
@@ -165,7 +164,7 @@ class SeoController extends SeoAppController {
         $this->Node->recursive = 1;
         $nodes = $this->Node->find('all',array('conditions' => array('Node.status =' => 1)));
         
-        $this->loadModel('Vocabulary');
+        $this->loadModel('Taxonomy.Vocabulary');
         $this->Vocabulary->bindModel(array(
         	'hasAndBelongsToMany'=>array(
 		        'Term' => array(
@@ -264,7 +263,7 @@ class SeoController extends SeoAppController {
 		$published_count = $this->Node->find('count', array('conditions'=>array('Node.status'=>1)));
 		$duplicate_titles = $this->Node->find('all', array('fields'=>array('COUNT(Node.title) as count', 'Node.title'),'conditions'=>array('Node.status'=>1), 'group'=>'Node.title HAVING count > 1'));
 		
-		$this->loadModel('Message');
+		$this->loadModel('Contacts.Message');
 		$message_count = $this->Message->find('count');
 		$message_count_read = $this->Message->find('count', array('conditions'=>array('Message.status'=>1)));
 		$message_count_unread = $this->Message->find('count', array('conditions'=>array('Message.status'=>0)));

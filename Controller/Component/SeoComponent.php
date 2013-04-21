@@ -34,6 +34,8 @@ class SeoComponent extends Component {
 
 		$this->Seo = ClassRegistry::init('Seo.Seo');
 
+		
+
 	}
  
     public function startup(&$controller) {
