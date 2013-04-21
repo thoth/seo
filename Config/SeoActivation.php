@@ -41,6 +41,7 @@ class SeoActivation {
 		if($this->version != $current_version){
 			switch($current_version){
 				case '1.0':
+				default:
    			        // Add a table to the DB
 			        App::uses('File', 'Utility');
 			        App::import('Model', 'CakeSchema', false);
@@ -62,7 +63,6 @@ class SeoActivation {
 				break;
 	        }
 		}
-
        
         $controller->Setting->write('Seo.remove_settings_on_deactivate','NO',array('description' => 'Remove settings on deactivate','editable' => 1));
         
