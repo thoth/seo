@@ -7,4 +7,3 @@ class Seo extends SeoAppModel{
 	);
 
 }
-?>

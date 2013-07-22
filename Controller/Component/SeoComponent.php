@@ -6,9 +6,9 @@
  * @category Component
  * @package  Croogo
  * @version  1.0
- * @author   Thomas Rader <thomas.rader@tigerclawtech.com>
+ * @author   Thomas Rader <tom.rader@claritymediasolutions.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://www.tigerclawtech.com
+ * @link     http://www.claritymediasolutions.com/
  */
 class SeoComponent extends Component {
 /**

@@ -6,10 +6,10 @@
  *
  * @category Behavior
  * @package  Croogo
- * @version  1.0
- * @author   Thomas Rader <thomas.rader@tigerclawtech.com>
+ * @version  1.4
+ * @author   Thomas Rader <tom.rader@claritymediasolutions.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://www.tigerclawtech.com/portfolio/croogo-seo-plugin
+ * @link     http://www.claritymediasolutions.com/
  */
 class SeoBehavior extends ModelBehavior {
 
@@ -111,6 +111,4 @@ class SeoBehavior extends ModelBehavior {
 
         }
 
-
 }
-?>
