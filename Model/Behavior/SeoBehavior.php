@@ -27,7 +27,7 @@ class SeoBehavior extends ModelBehavior {
          * @param array  $config
          * @return void
          */
-        public function setup(&$model, $config = array()) {
+        public function setup(Model $model, $config = array()) {
             if (is_string($config)) {
                     $config = array($config);
             }
@@ -56,7 +56,7 @@ class SeoBehavior extends ModelBehavior {
          * @param boolean $primary
          * @return array
          */
-         public function  afterFind(&$model, $results, $primary) {
+         public function  afterFind(Model $model, $results, $primary) {
                 parent::afterFind($model, $results, $primary);
 
                 if ($model->name != 'Seo') {
@@ -83,7 +83,7 @@ class SeoBehavior extends ModelBehavior {
          * @param integer $nodeid
          * @return array
          */
-        private function _getSeo(&$model, $node_id) {
+        private function _getSeo(Model $model, $node_id) {
             if (!is_object($this->Seo)) {
             	$this->Seo = ClassRegistry::init('Seo.Seo');
             }
