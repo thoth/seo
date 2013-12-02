@@ -56,7 +56,7 @@ class SeoBehavior extends ModelBehavior {
          * @param boolean $primary
          * @return array
          */
-         public function  afterFind(Model $model, $results, $primary) {
+         public function  afterFind(Model $model, $results, $primary = false) {
                 parent::afterFind($model, $results, $primary);
 
                 if ($model->name != 'Seo') {
