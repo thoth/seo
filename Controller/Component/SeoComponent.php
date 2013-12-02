@@ -28,7 +28,7 @@ class SeoComponent extends Component {
 	 *
 	 * @param object $controller
 	 */
-	function initialize(&$controller) {
+	function initialize(Controller $controller) {
 		// saving the controller reference for later use
 		$this->controller =& $controller;
 
@@ -38,7 +38,7 @@ class SeoComponent extends Component {
 
 	}
  
-    public function startup(&$controller) {
+    public function startup(Controller $controller) {
         //$controller->set('exampleComponent', 'ExampleComponent startup');
         $this->controller =& $controller;
     }
@@ -49,7 +49,7 @@ class SeoComponent extends Component {
  * @param object $controller Controller with components to beforeRender
  * @return void
  */
-    public function beforeRender(&$controller) {
+    public function beforeRender(Controller $controller) {
      	
     	//check to see if we are doing RSS
 //debug($controller); exit();    	
@@ -73,7 +73,7 @@ class SeoComponent extends Component {
  * @param object $controller Controller with components to shutdown
  * @return void
  */
-    public function shutdown(&$controller) {
+    public function shutdown(Controller $controller) {
     }
     
     private function replaceTokens($string){
