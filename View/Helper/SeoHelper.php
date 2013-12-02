@@ -36,7 +36,7 @@ class SeoHelper extends AppHelper {
  *
  * @return void
  */
-    public function beforeRender() {
+    public function beforeRender($viewFile) {
     	if (!empty($this->request->params['prefix']) && ($this->request->params['prefix'] == 'admin')) {
     		//don't want to add tracking stuff here but do want to mod some default settings
     		
@@ -154,7 +154,7 @@ class SeoHelper extends AppHelper {
  *
  * @return void
  */
-    public function afterRender() {
+    public function afterRender($viewFile) {
     	if (!empty($this->request->params['prefix']) && ($this->request->params['prefix'] == 'admin')) {
     		//don't want to add tracking stuff here but do want to mod some default settings
 
@@ -183,7 +183,7 @@ class SeoHelper extends AppHelper {
  *
  * @return void
  */
-    public function beforeLayout() {
+    public function beforeLayout($layoutFile) {
 
 		if($this->request->here == '/'){
 			$this->view->set('title_for_layout', Configure::read('Seo.homepage_title'));
@@ -195,7 +195,7 @@ class SeoHelper extends AppHelper {
  *
  * @return void
  */
-    public function afterLayout() {
+    public function afterLayout($layoutFile) {
     }
 /**
  * Called after LayoutHelper::setNode()
